@@ -1,0 +1,11 @@
+build
+data
+debian
+deb_dist
+dist
+*.egg-info
+*.pyc
+*.swp
+*.swo
+*.tar.gz
+.pytest_cache
