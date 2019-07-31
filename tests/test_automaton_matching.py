@@ -7,9 +7,9 @@ __email__      = "marc-olivier.buob@nokia-bell-labs.com"
 __copyright__  = "Copyright (C) 2018, Nokia"
 __license__    = "BSD-3"
 
+from pybgl.automaton        import make_automaton
 from pybgl.graphviz         import dotstr_to_html
 from pybgl.html             import html
-from lstar.automaton        import make_automaton
 from lstar.automaton_match  import automaton_match
 
 G1 = make_automaton(

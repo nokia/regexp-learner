@@ -7,9 +7,9 @@ __email__      = "marc-olivier.buob@nokia-bell-labs.com"
 __copyright__  = "Copyright (C) 2018, Nokia"
 __license__    = "BSD-3"
 
+from pybgl.automaton    import Automaton, delta, initial, is_final, sigma, vertices
 from pybgl.html         import html
 from collections        import deque
-from lstar.automaton    import Automaton, delta, initial, is_final, sigma, vertices
 
 # WARNING!
 # This implementations assumes we are matching two minimal deterministic automaton

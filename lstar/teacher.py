@@ -7,7 +7,7 @@ __email__      = "marc-olivier.buob@nokia-bell-labs.com"
 __copyright__  = "Copyright (C) 2018, Nokia"
 __license__    = "BSD-3"
 
-from lstar.automaton        import Automaton, accepts, alphabet, is_complete, is_finite
+from pybgl.automaton        import Automaton, accepts, alphabet, is_complete, is_finite
 from lstar.automaton_match  import automaton_match
 
 class Teacher:

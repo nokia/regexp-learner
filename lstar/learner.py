@@ -8,9 +8,9 @@ __copyright__  = "Copyright (C) 2018, Nokia"
 __license__    = "BSD-3"
 
 import numpy as np
+from pybgl.automaton            import Automaton, is_final, make_automaton, vertices
 from pybgl.graphviz             import dotstr_to_html
 from pybgl.html                 import html
-from lstar.automaton            import Automaton, is_final, make_automaton, vertices
 from lstar.observation_table    import ObservationTable
 from lstar.teacher              import Teacher
 
