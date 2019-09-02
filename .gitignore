@@ -10,3 +10,4 @@ dist
 *.tar.gz
 .pytest_cache
 .ipynb_checkpoints/
+*.svg
