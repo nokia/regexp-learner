@@ -11,18 +11,22 @@ lstar
 This module is built on top of numpy and pybgl_, a lightweight graph library. A jupyter notebook is also provided test the algorithm. To display automata, graphviz_ must be installed.
 
 ==================
-Playing with `lstar` module
+Online demo
 ==================
 
 .. _Notebook: https://github.com/nokia/regexp-learner/blob/master/Angluin.ipynb
 
-- *Method 1:* open the Notebook_ in Github to see online demo.
-- *Method 2:*
-  - Install Jupyter Notebook
-  - Follow Installation_ steps
-  - Run `jupyter-notebook` and open the `Angluin.ipynb` notebook through the web interface.
-  - Execute each cells to reproduce the online demo.
-  - Feel free to modify/add Teacher's automaton (see Test section) to see how L* algorithm proceeds.
+* Open the Notebook_ in Github to see online demo.
+
+==================
+Playing with `lstar` module
+==================
+
+* Install Jupyter Notebook
+* Follow Installation_ steps
+* Run `jupyter-notebook` and open the `Angluin.ipynb` notebook through the web interface.
+* Execute each cells to reproduce the online demo.
+* Feel free to modify/add Teacher's automaton (see Test section) to see how L* algorithm proceeds.
 
 ==================
 More about `lstar` module
