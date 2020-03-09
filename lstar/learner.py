@@ -10,6 +10,7 @@ __license__    = "BSD-3"
 import numpy as np
 from pybgl.automaton            import Automaton, is_final, make_automaton, vertices
 from pybgl.graphviz             import dotstr_to_html
+from pybgl.property_map         import make_func_property_map
 from pybgl.html                 import html
 from lstar.observation_table    import ObservationTable
 from lstar.teacher              import Teacher
@@ -51,7 +52,7 @@ def make_automaton_from_observation_table(o :ObservationTable, verbose :bool = F
                 a, q, o.row(s), r, o.row(s + a))
             )
 
-    g = make_automaton(transitions, q0, final_states)
+    g = make_automaton(transitions, q0, make_func_property_map(lambda q: q in final_states))
     log("final_states = %s" % final_states)
     log("<pre>make_automaton_from_observation_table</pre> returns:")
     log(dotstr_to_html(g.to_dot()))
