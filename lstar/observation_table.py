@@ -161,6 +161,7 @@ class ObservationTable:
     def is_consistent(self, verbose :bool = False) -> bool:
         ret = self.find_mismatch_consistency()
         if verbose and ret is not None:
+            (s1, s2, a, e) = ret
             print("Not consistent: s1 = %s s2 = %s a = %s e = %s" % (s1, s2, a, e))
         return ret is None
 
