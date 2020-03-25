@@ -69,13 +69,13 @@ class GoldObservationTable:
         self.row_length = len(self.exp)
         self.red_states = {
             prefix: [
-                self.get_ot_val(prefix + suffix)
+                self.get_value_from_sample(prefix + suffix)
                 for suffix in self.exp
             ] for prefix in red_states
         }
         self.blue_states = {
             prefix + a: [
-                self.get_ot_val(prefix + a + suffix)
+                self.get_value_from_sample(prefix + a + suffix)
                 for suffix in self.exp
             ] for prefix in red_states
             for a in sigma
@@ -213,7 +213,7 @@ class GoldObservationTable:
                         transitions += [(q, r, a)]
         transitions = [
             (states.index(q), states.index(r), a)
-            for q, r, a in states
+            for (q, r, a) in transitions
         ]
         final_states = defaultdict(bool, {
             states.index(state): True
@@ -221,6 +221,8 @@ class GoldObservationTable:
             else False
             for state in states
         })
+        print(final_states)
+        print(transitions)
         g = make_automaton(
             transitions,
             states.index(''),
@@ -238,6 +240,45 @@ class GoldObservationTable:
         for string in self.s_plus:
             incidence_node_automaton_insert_string(g, string)
         return g
+
+    def is_consistent_with_samples(self, g):
+        return True
+
+    def to_html(self):
+        def str_to_html(s):
+            return repr(s) if s else "&#x3b5;"
+
+        def str_to_red_html(s):
+            return "<font color='red'>%s</font>" % str_to_html(s)
+
+        def str_to_blue_html(s):
+            return "<font color='blue'>%s</font>" % str_to_html(s)
+
+        return "<table> {header} {rows} </table>".format(
+            header="<tr><th></th>%s</tr>" % (
+                ''.join(
+                    "<td>%s</td>" % str_to_html(suffix)
+                    for suffix in self.exp
+                )
+            ),
+            rows=''.join(
+                "<tr><th>{prefix}</th>{values}</tr>".format(
+                    prefix=str_to_red_html(red_state),
+                    values=''.join(
+                        "<td>%s</td>" % self.red_states[red_state][i]
+                        for i in range(self.row_length)
+                    )
+                ) for red_state in self.red_states
+            ) + ''.join(
+                "<tr><th>{prefix}</th>{values}</tr>".format(
+                    prefix=str_to_blue_html(blue_state),
+                    values=''.join(
+                        "<td>%s</td>" % self.blue_states[blue_state][i]
+                        for i in range(self.row_length)
+                    )
+                ) for blue_state in self.blue_states
+            )
+        )
 
 
 def gold_infer_automaton(

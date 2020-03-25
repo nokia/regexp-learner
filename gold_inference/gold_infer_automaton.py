@@ -59,5 +59,5 @@ def gold_infer_automaton(
         red_state_choice_func=red_state_choice_func
     )
     while obs_table.try_and_promote_blue():
-        pass
+        print(obs_table.to_html())
     return obs_table.gold_make_automaton()
