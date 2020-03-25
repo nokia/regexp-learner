@@ -23,4 +23,3 @@ def test_gold_infer_automaton():
     assert b
     assert num_vertices(g) == 3
     assert num_edges(g) == 6
-    s_minus =

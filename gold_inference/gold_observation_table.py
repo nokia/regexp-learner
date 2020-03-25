@@ -221,8 +221,6 @@ class GoldObservationTable:
             else False
             for state in states
         })
-        print(final_states)
-        print(transitions)
         g = make_automaton(
             transitions,
             states.index(''),
