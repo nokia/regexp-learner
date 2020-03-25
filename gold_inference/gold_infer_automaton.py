@@ -9,6 +9,7 @@ __license__ = "BSD-3"
 
 
 from gold_inference.gold_observation_table import GoldObservationTable
+from pybgl.html import html
 
 
 def gold_infer_automaton(
@@ -19,6 +20,7 @@ def gold_infer_automaton(
         fill_holes=False,
         blue_state_choice_func=lambda s: min(s),
         red_state_choice_func=lambda s: min(s),
+        show_tables_as_html=False,
 ) -> tuple:  # (bool, Automaton)
     """
     Runs golds automaton on the given input
@@ -56,8 +58,11 @@ def gold_infer_automaton(
         red_states=red_states,
         fill_holes=fill_holes,
         blue_state_choice_func=blue_state_choice_func,
-        red_state_choice_func=red_state_choice_func
+        red_state_choice_func=red_state_choice_func,
     )
+    if show_tables_as_html:
+        html(obs_table.to_html())
     while obs_table.try_and_promote_blue():
-        print(obs_table.to_html())
+        if show_tables_as_html:
+            html(obs_table.to_html())
     return obs_table.gold_make_automaton()
