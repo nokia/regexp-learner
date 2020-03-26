@@ -9,6 +9,7 @@ __license__    = "BSD-3"
 
 from pybgl.automaton        import make_automaton
 from pybgl.graphviz         import dotstr_to_html
+from pybgl.property_map     import make_func_property_map
 from pybgl.html             import html
 from lstar.automaton_match  import automaton_match
 
@@ -17,33 +18,38 @@ G1 = make_automaton(
         (0, 0, 'a'), (0, 1, 'b'),
         (1, 2, 'a'), (1, 1, 'b'),
         (2, 1, 'a'), (2, 1, 'b'),
-    ], 0, {1}
+    ], 0,
+    make_func_property_map(lambda q: q == 1)
 )
 
 G2 = make_automaton(
     [
         (0, 0, 'a'), (0, 1, 'b'),
-    ], 0, {1}
+    ], 0,
+    make_func_property_map(lambda q: q == 1)
 )
 
 G3 = make_automaton(
     [
         (0, 0, 'a'), (0, 1, 'b'),
-    ], 0, {}
+    ], 0,
+    make_func_property_map(lambda q: False)
 )
 
 G4 = make_automaton(
     [
         (0, 0, 'a'), (0, 1, 'b'),
         (1, 1, 'b'), (1, 0, 'a')
-    ], 0, {1}
+    ], 0,
+    make_func_property_map(lambda q: q == 1)
 )
 
 G5 = make_automaton(
     [
         (0, 0, 'a'), (0, 1, 'b'),
         (1, 1, 'b'), (1, 0, 'a')
-    ], 0, {}
+    ], 0,
+    make_func_property_map(lambda q: False)
 )
 
 

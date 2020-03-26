@@ -10,6 +10,7 @@ __license__    = "BSD-3"
 from pybgl.automaton            import Automaton, is_complete, make_automaton
 from pybgl.graphviz             import dotstr_to_html
 from pybgl.html                 import html
+from pybgl.property_map         import make_func_property_map
 from lstar.automaton_match      import automaton_match
 from lstar.observation_table    import ObservationTable
 from lstar.learner              import Learner, make_automaton_from_observation_table
@@ -20,33 +21,38 @@ G1 = make_automaton(
         (0, 0, 'a'), (0, 1, 'b'),
         (1, 2, 'a'), (1, 1, 'b'),
         (2, 1, 'a'), (2, 1, 'b'),
-    ], 0, {1}
+    ], 0,
+    make_func_property_map(lambda q: q == 1)
 )
 
 G2 = make_automaton(
     [
         (0, 0, 'a'), (0, 1, 'b'),
-    ], 0, {1}
+    ], 0,
+    make_func_property_map(lambda q: q == 1)
 )
 
 G3 = make_automaton(
     [
         (0, 0, 'a'), (0, 1, 'b'),
-    ], 0, {}
+    ], 0,
+    make_func_property_map(lambda q: False)
 )
 
 G4 = make_automaton(
     [
         (0, 0, 'a'), (0, 1, 'b'),
         (1, 1, 'b'), (1, 0, 'a')
-    ], 0, {1}
+    ], 0,
+    make_func_property_map(lambda q: q == 1)
 )
 
 G5 = make_automaton(
     [
         (0, 0, 'a'), (0, 1, 'b'),
         (1, 1, 'b'), (1, 0, 'a')
-    ], 0, {}
+    ], 0,
+    make_func_property_map(lambda q: False)
 )
 
 def test_make_automaton_from_observation_table():
@@ -104,7 +110,8 @@ def test_make_automaton_from_observation_table2():
         [
             (0, 0, 'b'), (0, 1, 'a'),
             (1, 1, 'a'), (1, 0, 'b')
-        ], 0, {1}
+        ], 0,
+        make_func_property_map(lambda q: q == 1)
     )
     html("<b>obtained</b>")
     html(dotstr_to_html(h.to_dot()))
