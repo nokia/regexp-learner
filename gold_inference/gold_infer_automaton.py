@@ -24,32 +24,31 @@ def gold_infer_automaton(
 ) -> tuple:  # (bool, Automaton)
     """
     Runs golds automaton on the given input
-        Args:
-            s_plus: iterable of strings that are
-                    present in the language to infer
-            s_minus: iterable of strings that are
-                     not present in the language to infer
-            sigma: iterable of chars, represents the alphabet
-            red_states: iterable of strings, should remain default
-                        to run gold's algorithm
-            fill_holes: bool.
-                     if True, will use the filling holes method
-                        if False, will not fill holes in the table
-                           but rather search for compatible successors
-                           when building the automaton
-            blue_state_choice_func: function: Iterable[str] -> str
-                       the function used to choose which blue state to promote
-                       among the candidates
-            red_state_choice_func: function: Iterable[str] -> str
-                       the function used to choose which red state to choose
-                       among the red_states which are compatible with a blue one
-        Returns:
-            a tuple (b, g) where
-                    b: bool is True if the algorithm succeeded in building
-                       an automaton
-                       if b is False, then the PTA accepting s_plus is returned
-                    g: Automaton if b is True, else NodeAutomaton
-
+    Args:
+        s_plus: An iterable of strings that are
+                present in the language to infer.
+        s_minus: An iterable of strings that are
+                 not present in the language to infer.
+        sigma: An iterable of chars, represents the alphabet.
+        red_states: An iterable of strings, should remain default
+                    to run gold's algorithm.
+        fill_holes: bool.
+                    If True, will use the filling holes method.
+                    If False, will not fill holes in the table.
+                       but rather search for compatible successors
+                       when building the automaton.
+        blue_state_choice_func: function: Iterable[str] -> str
+                   the function used to choose which blue state to promote
+                   among the candidates.
+        red_state_choice_func: function: Iterable[str] -> str
+                   the function used to choose which red state to choose
+                   among the red_states which are compatible with a blue one.
+    Returns:
+        a tuple (b, g) where
+                b: bool is True if the algorithm succeeded in building
+                   an automaton.
+                   if b is False, then the PTA accepting s_plus is returned.
+                g: Automaton if b is True, else NodeAutomaton.
     """
     obs_table = GoldObservationTable(
         s_plus,
