@@ -39,9 +39,9 @@ LONG_DESCRIPTION = "%s\n\n%s" % (README, HISTORY)
 # Copy is only triggered if the file does not yet exists.
 
 setup(
-    name             = "lstar",
+    name             = "regexp_learner",
     version          = ".".join(["%s" % x for x in __version__]),
-    description      = "lstar",
+    description      = "regexp_learner",
     long_description = LONG_DESCRIPTION,
     author           = "Marc-Olivier Buob",
     author_email     = "marc-olivier.buob@nokia-bell-labs.com",
@@ -49,7 +49,7 @@ setup(
     license          = "BSD-3",
     zip_safe         = False,
     packages         = find_packages(),
-    package_dir      = {"lstar" : "lstar/"},
+    package_dir      = {"regexp_learner" : "regexp_learner/"},
     requires         = ["typing"],
     test_suite       = "tests",
 )
