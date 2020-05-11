@@ -12,7 +12,7 @@ from collections import defaultdict
 from pybgl.property_map import make_assoc_property_map
 from pybgl.automaton import make_automaton
 from veggie.incidence_node_automaton import IncidenceNodeAutomaton
-from newdle.nlp.trie import incidence_node_automaton_insert_string
+from pybgl.incidence_node_automaton import incidence_node_automaton_insert_string
 
 
 class GoldObservationTable:
