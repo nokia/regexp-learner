@@ -1,0 +1,15 @@
+pip
+bump2version
+wheel
+watchdog
+flake8
+tox
+coverage
+Sphinx
+sphinx-rtd-theme
+sphinx_mdinclude
+twine
+
+pytest
+pytest-runner
+pytest-cov

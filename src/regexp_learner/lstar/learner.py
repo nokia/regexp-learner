@@ -1,23 +1,34 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
-__author__     = "Marc-Olivier Buob"
-__maintainer__ = "Marc-Olivier Buob"
-__email__      = "marc-olivier.buob@nokia-bell-labs.com"
-__copyright__  = "Copyright (C) 2018, Nokia"
-__license__    = "BSD-3"
+#
+# This file is part of the regexp-learner project
+# https://github.com/nokia/regexp-learner
 
 import numpy as np
-from pybgl.automaton            import Automaton, is_final, make_automaton, vertices
-from pybgl.graphviz             import dotstr_to_html
-from pybgl.property_map         import make_func_property_map
-from pybgl.html                 import html
-from lstar.observation_table    import ObservationTable
-from lstar.teacher              import Teacher
+from pybgl.automaton       import Automaton, is_final, make_automaton, vertices
+from pybgl.graphviz        import dotstr_to_html
+from pybgl.property_map    import make_func_property_map
+from pybgl.html            import html
+from .observation_table    import LstarObservationTable
+from .teacher              import Teacher
 
-def make_automaton_from_observation_table(o :ObservationTable, verbose :bool = False):
-    def f(s): pass
-    log = html if verbose else f
+def make_automaton_from_observation_table(
+    o: LstarObservationTable,
+    verbose: bool = False
+) -> Automaton:
+    """
+    Builds an ``Automaton`` instance from an ``LstarObservationTable`` instance.
+
+    Args:
+        o (LstarObservationTable): An ``LstarObservationTable`` instance.
+        verbose (bool); Pass ``True`` to print useful HTML information.
+
+    Returns:
+        The resulting ``Automaton`` instance.
+    """
+    def quiet(s):
+        pass
+    log = html if verbose else quiet
     map_row_state = dict()
     q0 = 0
     final_states = set()
@@ -59,16 +70,33 @@ def make_automaton_from_observation_table(o :ObservationTable, verbose :bool = F
     return g
 
 class Learner:
-    def __init__(self, teacher :Teacher, epsilon = "", verbose = True):
-        def no_log(s):
+    """
+    The learner (in the Angluin framework).
+    """
+    def __init__(self, teacher: Teacher, epsilon: str = "", verbose: bool = True):
+        """
+        Constructor.
+
+        Args:
+            teacher (Teacher): The teacher aka oracle (in the Angluin framework).
+            epsilon (str): The empty word.
+            verbose (bool); Pass ``True`` to print useful HTML information.
+        """
+        def quiet(s):
             pass
         self.teacher = teacher
         self.sigma = self.teacher.alphabet
-        self.o = ObservationTable(self.sigma)
+        self.o = LstarObservationTable(self.sigma)
         self.epsilon = epsilon
-        self.log = html if verbose else no_log
+        self.log = html if verbose else quiet
 
-    def initialize(self, verbose = True):
+    def initialize(self, verbose: bool = True):
+        """
+        Initializes the ``LstarObservationTable`` of this ``Learner``.
+
+        Args:
+            verbose (bool): Pass ``True`` to print useful HTML information.
+        """
         self.o.s.add(self.epsilon)
         self.o.set(
             self.epsilon,
@@ -81,13 +109,26 @@ class Learner:
             self.log(self.o.to_html())
 
     def extend(self):
+        """
+        Extends the ``LstarObservationTable`` of this ``Learner``.
+        This method is triggered when the Teacher returns a counter example.
+        """
         for s in {s for s in self.o.s} | {s + a for s in self.o.s for a in self.o.a}:
             for e in self.o.e:
                 if self.o.get(s, e) is not None:
                     continue
                 self.o.set(s, e, self.teacher.membership_query(s + e))
 
-    def learn(self, verbose :bool = False, write_files :bool = False) -> Automaton:
+    def learn(self, verbose: bool = False) -> Automaton:
+        """
+        Trains the ``Learner`` to infer the ``Automaton`` of the ``Teacher``.
+
+        Args:
+            verbose (bool): Pass ``True`` to print useful HTML information.
+
+        Returns:
+            The inferred ``Automaton`` instance.
+        """
         self.initialize(verbose = verbose)
         i = 0
         while(True):
@@ -162,8 +203,8 @@ class Learner:
                 if verbose:
                     self.log("The teacher disagreed: t = %r" % t)
                     self.log("The following prefixes have been added to S: %s" % prefixes)
-                    html("S is now equal to %s" % self.o.s)
-                    html(self.o.to_html())
+                    self.log("S is now equal to %s" % self.o.s)
+                    self.log(self.o.to_html())
             else:
                 if verbose and t is not None:
                     self.log("The teacher agreed :-)")

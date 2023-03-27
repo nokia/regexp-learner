@@ -1,18 +1,14 @@
 #!/usr/bin/env pytest
 # -*- coding: utf-8 -*-
+#
+# This file is part of the regexp-learner project
+# https://github.com/nokia/regexp-learner
 
-__author__ = "Maxime Raynal"
-__maintainer__ = "Maxime Raynal"
-__email__ = "maxime.raynal@nokia.com"
-__copyright__ = "Copyright (C) 2020, Nokia"
-__license__ = "BSD-3"
-
-from gold_inference.gold_observation_table import GoldObservationTable
-
+from regexp_learner.gold.observation_table import GoldObservationTable
 
 def test_gold_observation_table_check_input_consistency():
-    s_plus = s_minus = ['a']
-    sigma = 'a'
+    s_plus = s_minus = ["a"]
+    sigma = "a"
     try:
         obs_table = GoldObservationTable(
             s_plus,
@@ -24,7 +20,7 @@ def test_gold_observation_table_check_input_consistency():
         assert True
 
     s_minus = []
-    sigma = ''
+    sigma = ""
     try:
         obs_table = GoldObservationTable(
             s_plus,
@@ -35,7 +31,7 @@ def test_gold_observation_table_check_input_consistency():
     except Exception:
         assert True
 
-    red_states = ['a']
+    red_states = ["a"]
     try:
         obs_table = GoldObservationTable(
             s_plus,
@@ -47,9 +43,9 @@ def test_gold_observation_table_check_input_consistency():
     except Exception:
         assert True
 
-    s_plus = ['a']
+    s_plus = ["a"]
     s_minus = []
-    sigma = 'a'
+    sigma = "a"
     try:
         obs_table = GoldObservationTable(
             s_plus,

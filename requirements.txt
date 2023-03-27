@@ -1,0 +1,10 @@
+Sphinx>=1.4
+nbsphinx
+sphinx-rtd-theme
+sphinx_mdinclude
+pytest~=6.2.5
+setuptools~=59.6.0
+
+ipython
+pybgl
+numpy

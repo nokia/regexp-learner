@@ -1,27 +1,35 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+#
+# This file is part of the regexp-learner project
+# https://github.com/nokia/regexp-learner
 
-__author__     = "Marc-Olivier Buob"
-__maintainer__ = "Marc-Olivier Buob"
-__email__      = "marc-olivier.buob@nokia-bell-labs.com"
-__copyright__  = "Copyright (C) 2018, Nokia"
-__license__    = "BSD-3"
-
+from collections        import deque
 from pybgl.automaton    import Automaton, delta, initial, is_final, sigma, vertices
 from pybgl.html         import html
-from collections        import deque
 
-# WARNING!
-# This implementations assumes we are matching two minimal deterministic automaton
-# Hence we have only to check if there is a bijection between the states of g1 and g2.
+def automaton_match(g1 :Automaton, g2 :Automaton, verbose = False) -> str:
+    """
+    Tests whether two minimized deterministic ``Automaton`` recognize
+    the same language. One can minimize an Automaton using
+    ``pybgl.hopcroft_minimize.hopcroft_minimize``.
 
-def automaton_match(g1 :Automaton, g2 :Automaton, verbose = False) -> bool:
-    def f(s): pass
-    log = html if verbose else f
+    Args:
+        g1 (Automaton): A minimal deterministic ``Automaton`` instance.
+        g2 (Automaton): A minimal deterministic ``Automaton`` instance.
+        verbose (bool): Pass ``True`` to print useful HTML information.
+
+    Returns:
+        ``None`` if g1 matches g2, otherwise a counter-example (possibly
+        the empty word).
+    """
+    def quiet(s):
+        pass
+    log = html if verbose else quiet
     q01 = initial(g1)
     q02 = initial(g2)
     if is_final(q01, g1) != is_final(q02, g2):
-        # Contradiction
+        # Contradiction for the empty word.
         return ""
     map_q1_q2 = {q01 : q02}
     stack = deque()
@@ -58,4 +66,3 @@ def automaton_match(g1 :Automaton, g2 :Automaton, verbose = False) -> bool:
             log("contradiction: %s" % contradiction)
             return contradiction
     return None
-

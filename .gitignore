@@ -8,6 +8,8 @@ dist
 *.swp
 *.swo
 *.tar.gz
-.pytest_cache
+.coverage
 .ipynb_checkpoints/
+.pytest_cache
+.tox
 *.svg

@@ -1,17 +1,14 @@
 #!/usr/bin/env pytest-3
 # -*- coding: utf-8 -*-
+#
+# This file is part of the regexp-learner project
+# https://github.com/nokia/regexp-learner
 
-__author__     = "Marc-Olivier Buob"
-__maintainer__ = "Marc-Olivier Buob"
-__email__      = "marc-olivier.buob@nokia-bell-labs.com"
-__copyright__  = "Copyright (C) 2018, Nokia"
-__license__    = "BSD-3"
-
-from pybgl.html              import html
-from lstar.observation_table import ObservationTable
+from pybgl.html import html
+from regexp_learner.lstar.observation_table import LstarObservationTable
 
 def test_observation_table_get_set():
-    o = ObservationTable("ab")
+    o = LstarObservationTable("ab")
     o.s = {"", "a"}
     o.set("", "", True)
     o.set("a", "", False)
@@ -36,7 +33,7 @@ def test_observation_table_is_closed():
         assert is_closed == expected
 
     alphabet = "ab"
-    o = ObservationTable("ab")
+    o = LstarObservationTable("ab")
 
     # S = {epsilon}
     o.s.add("")
@@ -67,7 +64,7 @@ def test_observation_table_is_consistent():
         html("This observation table is %sconsistent" % ("" if is_consistent else "<b>not</b> "))
         assert is_consistent == expected
 
-    o = ObservationTable("ab")
+    o = LstarObservationTable("ab")
     o.s = {"", "a"}
     o.set("", "", True)
     o.set("a", "", False)
@@ -76,7 +73,7 @@ def test_observation_table_is_consistent():
     o.set("ab", "", False)
     check(o, True)
 
-    o = ObservationTable("ab")
+    o = LstarObservationTable("ab")
     o.s = {"", "a"}
     o.set("", "", True)
     o.set("a", "", True)

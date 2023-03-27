@@ -11,16 +11,16 @@ import numpy as np
 from operator import itemgetter
 from collections import defaultdict
 
-class ObservationTable:
+class LstarObservationTable:
     def __init__(self, a = "abcdefghijklmnopqrstuvwxyz"):
         self.a = a
         self.map_prefix = dict() # {str : int} maps prefixes with row indexes
         self.map_suffix = dict() # {str : int} maps suffixes with column indexes
         self.s = set()           # {str} keeps track of prefixes
          # {0,1}^(|map_prefixes|x|map_suffixes|) matrix (observation table)
-        self.t = np.zeros((1, 1), dtype = np.bool)
+        self.t = np.zeros((1, 1), dtype = np.bool_)
          # {0,1}^(|map_prefixes|x|map_suffixes|) indicated parts of T that have been probed
-        self.probed = np.zeros((1, 1), dtype = np.bool)
+        self.probed = np.zeros((1, 1), dtype = np.bool_)
 
     @property
     def e(self) -> set:
@@ -43,7 +43,7 @@ class ObservationTable:
         self.probed = np.insert(self.probed, self.probed.shape[1], values = 0, axis = 1)
 
     def add_prefix(self, s :str) -> tuple:
-        i = ObservationTable.get_or_create_index(self.map_prefix, s)
+        i = LstarObservationTable.get_or_create_index(self.map_prefix, s)
         (m, n) = self.t.shape
         added = (i >= m)
         if added:
@@ -51,7 +51,7 @@ class ObservationTable:
         return (i, added)
 
     def add_suffix(self, e :str) -> tuple:
-        j = ObservationTable.get_or_create_index(self.map_suffix, e)
+        j = LstarObservationTable.get_or_create_index(self.map_suffix, e)
         (m, n) = self.t.shape
         added = (j >= n)
         if added:

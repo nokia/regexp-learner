@@ -1,5 +1,8 @@
 #!/usr/bin/env pytest-3
 # -*- coding: utf-8 -*-
+#
+# This file is part of the regexp-learner project
+# https://github.com/nokia/regexp-learner
 
 __author__     = "Marc-Olivier Buob"
 __maintainer__ = "Marc-Olivier Buob"
@@ -11,10 +14,11 @@ from pybgl.automaton            import Automaton, is_complete, make_automaton
 from pybgl.graphviz             import dotstr_to_html
 from pybgl.html                 import html
 from pybgl.property_map         import make_func_property_map
-from lstar.automaton_match      import automaton_match
-from lstar.observation_table    import ObservationTable
-from lstar.learner              import Learner, make_automaton_from_observation_table
-from lstar.teacher              import Teacher
+
+from regexp_learner.lstar.automaton_match   import automaton_match
+from regexp_learner.lstar.observation_table import LstarObservationTable
+from regexp_learner.lstar.learner           import Learner, make_automaton_from_observation_table
+from regexp_learner.lstar.teacher           import Teacher
 
 G1 = make_automaton(
     [
@@ -57,7 +61,7 @@ G5 = make_automaton(
 
 def test_make_automaton_from_observation_table():
     # Build observation table
-    o = ObservationTable("ab")
+    o = LstarObservationTable("ab")
     o.s = {"", "b", "ba"}
     o.set("",    "", False); o.set("",    "a", False)
     o.set("b",   "", True) ; o.set("b",   "a", False)
@@ -87,7 +91,7 @@ def test_make_automaton_from_observation_table():
 
 def test_make_automaton_from_observation_table2():
     # Build observation table
-    o = ObservationTable("ab")
+    o = LstarObservationTable("ab")
     o.s = {"", "a"}
     o.set("", "", False)
     o.set("a", "", True)
@@ -120,7 +124,7 @@ def test_make_automaton_from_observation_table2():
     assert automaton_match(expected, h) == None
 
 def test_learners(gs = [G1, G2, G3, G4, G5], verbose = False):
-    def test_learner(g :Automaton, verbose :bool = False, write_files :bool = False):
+    def test_learner(g :Automaton, verbose :bool = False):
         if not is_complete(g):
             html(dotstr_to_html(g.to_dot()))
             html("Ignored, this automaton must be finite, deterministic and complete")
@@ -131,7 +135,7 @@ def test_learners(gs = [G1, G2, G3, G4, G5], verbose = False):
         html(dotstr_to_html(teacher.g.to_dot()))
 
         learner = Learner(teacher)
-        h = learner.learn(verbose = verbose, write_files = write_files)
+        h = learner.learn(verbose = verbose)
         html("<b>Learner</b>")
         html(dotstr_to_html(h.to_dot()))
 

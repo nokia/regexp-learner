@@ -1,17 +1,15 @@
 #!/usr/bin/env pytest-3
 # -*- coding: utf-8 -*-
+#
+# This file is part of the regexp-learner project
+# https://github.com/nokia/regexp-learner
 
-__author__     = "Marc-Olivier Buob"
-__maintainer__ = "Marc-Olivier Buob"
-__email__      = "marc-olivier.buob@nokia-bell-labs.com"
-__copyright__  = "Copyright (C) 2018, Nokia"
-__license__    = "BSD-3"
+from pybgl.automaton import make_automaton
+from pybgl.graphviz import dotstr_to_html
+from pybgl.property_map import make_func_property_map
+from pybgl.html import html
 
-from pybgl.automaton        import make_automaton
-from pybgl.graphviz         import dotstr_to_html
-from pybgl.property_map     import make_func_property_map
-from pybgl.html             import html
-from lstar.automaton_match  import automaton_match
+from regexp_learner.lstar.automaton_match import automaton_match
 
 G1 = make_automaton(
     [
