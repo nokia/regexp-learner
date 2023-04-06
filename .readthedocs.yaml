@@ -29,6 +29,6 @@ sphinx:
 # https://docs.readthedocs.io/en/stable/tutorial/index.html#making-warnings-more-visible
 python:
    install:
-   - requirements: requirements.txt requirements_dev.txt
+   - requirements: requirements.txt, requirements_dev.txt
    - method: pip
      path: .
