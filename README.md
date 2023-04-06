@@ -9,8 +9,8 @@
 ## Overview
 
 [regexp-learner](https://github.com/nokia/regexp-learner) is a [Python 3](http://python.org/) module providing the following algorithms:
-* __Angluin (1987):__ the L* algorithm is presented in _Learning regular sets from queries and couterexamples_, Dana Angluin, 1987 [pdf](https://people.eecs.berkeley.edu/~dawnsong/teaching/s10/papers/angluin87.pdf).
-* __Gold (1978):__ the Gold algorithm is presented in _Complexity of automaton identification from given data_, E. Mark Gold, 1987 [pdf](Complexity of automaton identification from given data).
+* __Angluin (1987):__ the L* algorithm is presented in _Learning regular sets from queries and couterexamples_, Dana Angluin, 1987 [[pdf](https://people.eecs.berkeley.edu/~dawnsong/teaching/s10/papers/angluin87.pdf)].
+* __Gold (1978):__ the Gold algorithm is presented in _Complexity of automaton identification from given data_, E. Mark Gold, 1987 [[pdf](http://sebastian.doc.gold.ac.uk/papers/Language_Learning/gold78complexity.pdf)].
 
 This module is built on top of:
 * [numpy](https://pypi.org/project/numpy/)
