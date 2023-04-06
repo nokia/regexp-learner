@@ -14,8 +14,9 @@ jobs:
         # 3.10 for ubuntu 22.04
         # ...
         # Unfortunately, 3.x does not work for ubuntu-latest
-        python-version: ["3.8"]
-        poetry-version: ["1.1.15"]
+        python-version: ["3.11"]
+        # poetry-version >= 1.2 is required to support groups
+        poetry-version: ["1.3.2"]
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }} 
     steps:
