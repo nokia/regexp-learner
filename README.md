@@ -4,7 +4,7 @@
 [![Build](https://github.com/nokia/regexp-learner/workflows/build/badge.svg)](https://github.com/nokia/regexp-learner/actions/workflows/build.yml)
 [![Documentation](https://github.com/nokia/regexp-learner/workflows/docs/badge.svg)](https://github.com/nokia/regexp-learner/actions/workflows/docs.yml)
 [![ReadTheDocs](https://readthedocs.org/projects/regexp-learner/badge/?version=latest)](https://regexp-learner.readthedocs.io/en/latest/?badge=latest)
-[![codecov.io](https://codecov.io/gh/nokia/regexp-learner/branch/main/graphs/badge.svg)](https://app.codecov.io/gh/nokia/regexp-learner)
+[![codecov](https://codecov.io/gh/nokia/regexp-learner/branch/master/graph/badge.svg?token=OZM4J0Y2VL)](https://codecov.io/gh/nokia/regexp-learner)
 
 ## Overview
 
