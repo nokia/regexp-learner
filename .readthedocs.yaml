@@ -25,7 +25,6 @@ sphinx:
 # Install the package before building the documentation 
 # https://docs.readthedocs.io/en/stable/tutorial/index.html#making-warnings-more-visible
 python:
-  version: 3
   install:
   - requirements: requirements.txt
   - method: setuptools
