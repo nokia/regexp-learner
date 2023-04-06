@@ -5,7 +5,7 @@ description = "Python3 module providing some algorithms to infer automata and re
 authors = ["Marc-Olivier Buob <marc-olivier.buob@nokia-bell-labs.com>"]
 license = "BSD license"
 readme = "README.md"
-packages = [{include = "regexp_learner"}]
+packages = [{include = "src/regexp_learner"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
