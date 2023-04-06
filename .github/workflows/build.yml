@@ -7,7 +7,7 @@ on: [push]
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         # Only use python version matching libboost_python*.so lib
@@ -16,8 +16,8 @@ jobs:
         # ...
         # Unfortunately, 3.x does not work for ubuntu-latest
         python-version: ["3.8"]
-    steps:
 
+    steps:
     - name: Checkout
       uses: actions/checkout@v3
 
