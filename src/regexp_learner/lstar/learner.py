@@ -17,14 +17,15 @@ def make_automaton_from_observation_table(
     verbose: bool = False
 ) -> Automaton:
     """
-    Builds an ``Automaton`` instance from an ``LstarObservationTable`` instance.
+    Builds an :py:class:`Automaton` instance from an
+    :py:class:`.LstarObservationTable` instance.
 
     Args:
-        o (LstarObservationTable): An ``LstarObservationTable`` instance.
+        o (LstarObservationTable): An :py:class:`.LstarObservationTable` instance.
         verbose (bool); Pass ``True`` to print useful HTML information.
 
     Returns:
-        The resulting ``Automaton`` instance.
+        The resulting `Automaton` instance.
     """
     def quiet(s):
         pass
@@ -92,7 +93,7 @@ class Learner:
 
     def initialize(self, verbose: bool = True):
         """
-        Initializes the ``LstarObservationTable`` of this ``Learner``.
+        Initializes the :py:class:`.LstarObservationTable` of this :py:class:`.Learner`.
 
         Args:
             verbose (bool): Pass ``True`` to print useful HTML information.
@@ -110,7 +111,7 @@ class Learner:
 
     def extend(self):
         """
-        Extends the ``LstarObservationTable`` of this ``Learner``.
+        Extends the :py:class:`.LstarObservationTable` of this :py:class:`.Learner`.
         This method is triggered when the Teacher returns a counter example.
         """
         for s in {s for s in self.o.s} | {s + a for s in self.o.s for a in self.o.a}:
@@ -121,13 +122,14 @@ class Learner:
 
     def learn(self, verbose: bool = False) -> Automaton:
         """
-        Trains the ``Learner`` to infer the ``Automaton`` of the ``Teacher``.
+        Trains the :py:class:`.Learner` to infer the :py:class:`Automaton`
+        of the :py:class:`.Teacher`.
 
         Args:
             verbose (bool): Pass ``True`` to print useful HTML information.
 
         Returns:
-            The inferred ``Automaton`` instance.
+            The inferred :py:class:`Automaton` instance.
         """
         self.initialize(verbose = verbose)
         i = 0
@@ -143,7 +145,7 @@ class Learner:
                     if verbose:
                         self.log(self.o.to_html())
                         self.log(
-                            "Observation table is not consistent: (s1, s2, a, e) = %s, adding %s to E" % (
+                            "The observation table is not consistent: (s1, s2, a, e) = %s, adding %s to E" % (
                                 (s1, s2, a, e),
                                 a + e
                             )
@@ -154,7 +156,7 @@ class Learner:
                     if verbose:
                         self.log(self.o.to_html())
                         self.log(
-                            "Observation table is not closed: (s1, a) = %s, adding s1 + a = %s to S" % (
+                            "The observation table is not closed: (s1, a) = %s, adding s1 + a = %s to S" % (
                                 (s1, a),
                                 s1 + a
                             )
@@ -168,7 +170,7 @@ class Learner:
                 #if i > 10:
                 #    raise Exception("Implementation error? (infinite loop)")
             if verbose:
-                self.log("Observation table is closed and consistent")
+                self.log("The observation table is closed and consistent")
                 self.log(
                     """
                     <table>
@@ -211,5 +213,3 @@ class Learner:
                 break
             i += 1
         return make_automaton_from_observation_table(self.o)
-
-

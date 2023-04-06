@@ -12,15 +12,15 @@ from .automaton_match  import automaton_match
 
 class Teacher:
     """
-    The ``Teacher`` class (aka oracle) in the Angluin framework.
+    The :py:class:`Teacher` class (aka oracle) in the Angluin framework.
     """
 
-    def __init__(self, g :Automaton):
+    def __init__(self, g: Automaton):
         """
         Constructor.
 
         Args:
-            g: The ``Automaton`` that the ``Learner`` tries to infer.
+            g: The :py:class:`pybgl.Automaton` that the :py:class:`Learner` tries to infer.
         """
         assert is_complete(g)
         assert is_finite(g)
@@ -30,36 +30,39 @@ class Teacher:
     @property
     def alphabet(self) -> set:
         """
-        Accessor the he alphabet of this ``Teacher`` instance.
+        Accessor the alphabet of this :py:class:`Teacher` instance.
 
         Returns:
-            The alphabet of the ``Automaton`` of this ``Teacher`` instance.
+            The alphabet of the :py:class:`pybgl.Automaton` of this
+            :py:class:`Teacher` instance.
         """
         return alphabet(self.g)
 
     def conjecture(self, h :Automaton) -> str:
         """
-        Handles a conjecture query (see Angluin framework).
+        Handles a conjecture query.
+        (see Angluin's paper or `Angluin.pdf <https://github.com/nokia/regexp-learner/blob/master/Angluin.pdf>`__ in this repository).
 
         Args:
-            h (Automaton): The tested ``Automaton``
-                (typically, submitted by the ``Learner``).
+            h (Automaton): The tested :py:class:`pybgl.Automaton`
+                (typically, submitted by the :py:class:`Learner`).
 
         Returns:
-            ``True`` if ``h`` matches the ``Automaton`` of this ``Teacher``
+            ``True`` if ``h`` matches the ``Automaton`` of this :py:class:`Teacher`
             instance, ``False`` otherwise.
         """
         return automaton_match(self.g, h)
 
     def membership_query(self, w :str) -> bool:
         """
-        Handles a membership query (see Angluin framework).
+        Handles a membership query.
+        (see Angluin's paper or `Angluin.pdf <https://github.com/nokia/regexp-learner/blob/master/Angluin.pdf>`__ in this repository).
 
         Args:
-            w: The tested word (typically, submitted by the ``Learner``).
+            w: The tested word (typically, submitted by the :py:class:`Learner`).
 
         Returns:
-            ``True`` if ``w`` is matched by the ``Automaton`` of this ``Teacher``
+            ``True`` if ``w`` is matched by the ``Automaton`` of this :py:class:`Teacher`
             instance, ``False`` otherwise.
         """
         return accepts(w, self.g)

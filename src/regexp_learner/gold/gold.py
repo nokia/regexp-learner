@@ -12,11 +12,11 @@ def gold(
     s_plus: iter,
     s_minus: iter,
     sigma: str ="abcdefghijklmnopqrstuvwxyz0123456789 ",
-    red_states:set = {""},
+    red_states: set = {""},
     fill_holes: bool = False,
     blue_state_choice_func: callable = min,
     red_state_choice_func: callable = min,
-    show_tables_as_html:bool = False,
+    verbose: bool = False,
 ) -> tuple:
     """
     Runs the GOLD algorithm.
@@ -47,16 +47,15 @@ def gold(
             function, used to choose which red state to choose
             among the red_states which are compatible with a blue one.
 
-        show_tables_as_html (bool): Pass ``True`` to output in HTML
+        verbose (bool): Pass ``True`` to output in HTML
             the important steps of the algorithm.
 
     Returns:
         A tuple ``(g, success)`` where:
-
-        - ``g`` is the inferred  ``Automaton``.
-        - ``success`` equals ``True`` iff the algorithm succeeded in building
-           an automaton. If ``False``, ``g`` is the Prefix Tree
-           Acceptor (PTA) accepting ``s_plus``.
+        ``g`` is the inferred  :py:class:`Automaton`;
+        ``success`` equals ``True`` iff the algorithm succeeded
+        If ``success`` equals ``False``, then ``g`` is the Prefix Tree
+        Acceptor (PTA) accepting ``s_plus``.
     """
     obs_table = GoldObservationTable(
         s_plus,
@@ -67,9 +66,9 @@ def gold(
         blue_state_choice_func=blue_state_choice_func,
         red_state_choice_func=red_state_choice_func,
     )
-    if show_tables_as_html:
+    if verbose:
         html(obs_table.to_html())
     while obs_table.try_and_promote_blue():
-        if show_tables_as_html:
+        if verbose:
             html(obs_table.to_html())
     return obs_table.to_automaton()

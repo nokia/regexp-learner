@@ -12,8 +12,8 @@ from ..strings import is_prefix_closed, suffixes
 
 class GoldObservationTable:
     """
-    This class implements the observation table needed to
-    run the Gold algorithm.
+    The :py:class:`GoldObservationTable` class implements the observation
+    table used in the Gold algorithm.
     """
     ZERO = 0
     ONE = 1
@@ -117,7 +117,7 @@ class GoldObservationTable:
             red_states (set): An iterable of strings, should remain default
                 to run Gold algorithm.
 
-        Raise:
+        Raises:
             A ``RuntimeError`` exception if the input data is not consistent.
         """
         # Check that all strings have their letters in sigma
@@ -146,16 +146,16 @@ class GoldObservationTable:
 
     def get_value_from_sample(self, w: str) -> int:
         """
-        Returns the value used to fill this ``GoldObservationTable``
+        Returns the value used to fill this :py:class:`GoldObservationTable`
         for a given word.
 
         Args:
             w (str): An arbitray word.
 
         Returns:
-            ``ONE`` if ``w`` is in s_plus,
-            ``ZERO`` if it is in s_minus,
-            ``STAR`` otherwise
+            - :py:attr:`ONE` if ``w`` is in :py:attr:`self.s_plus`,
+            - :py:attr:`ZERO` if it is in :py:attr:`s_minus`,
+            - :py:attr:`STAR` otherwise
         """
         return (
             GoldObservationTable.ONE  if w in self.s_plus  else
@@ -169,8 +169,8 @@ class GoldObservationTable:
         Checks whether two rows are obviously different.
 
         Args:
-            row1 (list): A row of this ``GoldObservationTable``.
-            row2 (list): A row of this ``GoldObservationTable``.
+            row1 (list): A row of this :py:class:`GoldObservationTable`.
+            row2 (list): A row of this :py:class:`GoldObservationTable`.
 
         Returns:
             ``True`` iff one of these two row contains at least one ``ONE``
@@ -212,7 +212,7 @@ class GoldObservationTable:
         """
         Tries to find a blue state to promote (cf Gold algorithm).
         If such a state is found, the function promotes it and updates this
-        GoldObservationTable accordingly.
+        :py:class:`GoldObservationTable` accordingly.
 
         Returns:
             ``True`` iff a state has been promoted, ``False`` otherwise.
@@ -234,10 +234,11 @@ class GoldObservationTable:
         Finds a red state that is compatible according to a row.
 
         Args:
-            row (list): A vector of {ONE, ZERO, STAR}) corresponding to a blue state.
+            row (list): A vector of values in ``{ONE, ZERO, STAR}``,
+                corresponding to a blue state.
 
         Returns:
-            Aa red state that is compatible (not obviously different)
+            A red state that is compatible (not obviously different)
         """
         candidates = [
             red_state
@@ -250,7 +251,7 @@ class GoldObservationTable:
 
     def try_and_fill_holes(self):
         """
-        Tries to fill all the holes (STAR) that are in the observation
+        Tries to fill all the holes (:py:attr:`STAR`) that are in the observation
         table after the promoting phase.
 
         Returns:
@@ -294,12 +295,11 @@ class GoldObservationTable:
         Builds an automaton from the observation table information.
 
         Returns:
-            A tuple ``(g, success)`` where:
-
-            - ``g`` is the inferred  ``Automaton``.
-            - ``success`` equals ``True`` iff the algorithm succeeded in building
-               an automaton. If ``False``, ``g`` is the Prefix Tree
-               Acceptor (PTA) accepting ``s_plus``.
+            A tuple ``(g, success)`` where: ``g`` is the inferred
+            :py:class:`pybgl.Automaton`;
+            ``success`` equals ``True`` iff the algorithm succeeded in building
+            an automaton.
+            If ``False``, ``g`` is the Prefix Tree Acceptor (PTA) accepting ``s_plus``.
         """
         if self.fill_holes:
             if not self.try_and_fill_holes():
@@ -355,10 +355,10 @@ class GoldObservationTable:
     def make_pta(self) -> Trie:
         """
         Builds the PTA (Prefix Tree Acceptor) corresponding to the positive
-        examples related to this ``GoldObservationTable`` instance.
+        examples related to this :py:class:`GoldObservationTable` instance.
 
         Returns:
-            The corresponding ``Trie`` instance.
+            The corresponding :py:class:`pybgl.Trie` instance.
         """
         g = Trie()
         for s in self.s_plus:
@@ -370,22 +370,28 @@ class GoldObservationTable:
         Checks if a given automaton complies with the positive and negative
         examples.
 
-        Using the ``Automaton`` implementation, this method always returns
-        ``True``. If the automaton type implements rejecting states, this
-        method should be overloaded and check whether ``g`` is consistent
-        with s_plus and with s_minus.
+        _Remarks:_
+
+        - Using the :py:class:`pybgl.Automaton` implementation, this method
+          always returns ``True``.
+        - If the automaton class supports rejecting states,
+          :py:meth:`GoldObservationTable.is_consistent_with_samples` should be
+          overloaded and check whether ``g`` is consistent
+          with :py:attr:`self.s_plus` (positive examples) and
+          with :py:attr:`self.s_minus` (negative examples).
 
         Args:
             g (Automaton): An automaton instance.
 
         Returns:
-            ``True``.
+            ``True`` if ``g`` accepts the positive examples and rejects the negative
+            examples, ``False`` otherwise.
         """
         return True
 
     def to_html(self) -> str:
         """
-        Exports to HTML this ``GoldObservationTable`` instance.
+        Exports to HTML this :py:class:`GoldObservationTable` instance.
 
         Returns:
             The corresponding HTML string.
