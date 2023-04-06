@@ -2,3 +2,7 @@ ipython
 numpy
 pybgl
 setuptools>=67.6.1
+nbsphinx
+Sphinx
+sphinx-rtd-theme
+sphinx_mdinclude
