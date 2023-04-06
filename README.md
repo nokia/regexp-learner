@@ -1,8 +1,8 @@
 # regexp-learner
 
 [![PyPI](https://img.shields.io/pypi/v/regexp_learner.svg)](https://pypi.python.org/pypi/regexp_learner/)
-[![Build](https://github.com/nokia/regexp-learner/workflows/build/badge.svg?branch=main)](https://github.com/nokia/regexp-learner/actions?query=workflow%3Abuild)
-[![Documentation](https://github.com/nokia/regexp-learner/workflows/docs/badge.svg?branch=main)](https://github.com/nokia/regexp-learner/actions?query=workflow%3Adocs)
+[![Build](https://github.com/nokia/regexp-learner/workflows/build/badge.svg)](https://github.com/nokia/regexp-learner/actions/workflows/build.yml)
+[![Documentation](https://github.com/nokia/regexp-learner/workflows/docs/badge.svg)](https://github.com/nokia/regexp-learner/actions/workflows/docs.yml)
 [![ReadTheDocs](https://readthedocs.org/projects/regexp-learner/badge/?version=latest)](https://regexp-learner.readthedocs.io/en/latest/?badge=latest)
 [![codecov.io](https://codecov.io/gh/nokia/regexp-learner/branch/main/graphs/badge.svg)](https://app.codecov.io/gh/nokia/regexp-learner)
 
@@ -13,16 +13,16 @@
 * __Gold (1978):__ the Gold algorithm is presented in _Complexity of automaton identification from given data_, E. Mark Gold, 1987 [[pdf](http://sebastian.doc.gold.ac.uk/papers/Language_Learning/gold78complexity.pdf)].
 
 This module is built on top of:
-* [numpy](https://pypi.org/project/numpy/)
+* [numpy](https://pypi.org/project/numpy/);
 * [pybgl](https://pypi.org/project/pybgl/), a lightweight graph library.
 
-A [jupyter notebook](https://pypi.org/project/jupyter/) is also provided test the algorithm. Note that the [graphviz](https://pypi.org/project/jupyter/) runnables (e.g. `dot`) is required to display the automata.
+A [jupyter notebook](https://pypi.org/project/jupyter/) is also provided test the algorithm. Note that the [graphviz](https://pypi.org/project/jupyter/) runnables (e.g., `dot`) is required to display the automata.
 
 ## Usage
 
 * Install [Jupyter Notebook](https://pypi.org/project/jupyter/) or [Jupyter lab](https://pypi.org/project/jupyterlab/).
 * Follow [installation steps](https://github.com/nokia/regexp-learner/wiki/Installation).
-* Run `jupyter notebook` or `jupyter lab` 
+* Run `jupyter notebook` or `jupyter lab`.
 * Open the desired notebook.
 * Run the cells.
 
