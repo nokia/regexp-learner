@@ -1,4 +1,5 @@
 build
+coverage.xml
 data
 debian
 deb_dist
