@@ -1,0 +1,34 @@
+# .readthedocs.yaml
+# Read the Docs configuration file
+# See https://docs.readthedocs.io/en/stable/config-file/v2.html for details
+
+# Required
+version: 2
+
+# Set the version of Python and other tools you might need
+# Install APT package as explained in:
+#  https://buildmedia.readthedocs.org/media/pdf/docs/latest/docs.pdf
+build:
+  os: ubuntu-20.04
+  tools:
+    python: "3.8"
+  apt_packages:
+    - graphviz 
+    - pandoc
+
+# Build documentation in the docs/ directory with Sphinx
+sphinx:
+   configuration: docs/conf.py
+
+# If using Sphinx, optionally build your docs in additional formats such as PDF
+# formats:
+#    - pdf
+
+# Declare the Python requirements required to build your docs
+# Install the package before building the documentation 
+# https://docs.readthedocs.io/en/stable/tutorial/index.html#making-warnings-more-visible
+python:
+   install:
+   - requirements: requirements.txt requirements_dev.txt
+   - method: pip
+     path: .
