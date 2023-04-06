@@ -123,8 +123,8 @@ def test_make_automaton_from_observation_table2():
     html(dotstr_to_html(expected.to_dot()))
     assert automaton_match(expected, h) == None
 
-def test_learners(gs = [G1, G2, G3, G4, G5], verbose = False):
-    def test_learner(g :Automaton, verbose :bool = False):
+def test_learners(gs = [G1, G2, G3, G4, G5], verbose = True):
+    def test_learner(g :Automaton, verbose :bool = True):
         if not is_complete(g):
             html(dotstr_to_html(g.to_dot()))
             html("Ignored, this automaton must be finite, deterministic and complete")

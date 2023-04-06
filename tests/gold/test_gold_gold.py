@@ -15,7 +15,7 @@ def test_gold_gold():
     assert success
     assert num_vertices(g) == 3
     assert num_edges(g) == 6
-    (g, success) = gold(s_plus, s_minus, sigma=sigma, fill_holes=True)
+    (g, success) = gold(s_plus, s_minus, sigma=sigma, fill_holes=True, verbose=True)
     assert success
     assert num_vertices(g) == 3
     assert num_edges(g) == 6
