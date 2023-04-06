@@ -28,9 +28,9 @@ jobs:
         python-version: ${{ matrix.python-version }}
         cache: 'pip'  # Caching dependencies
 
-    - name: Install graphviz
+    - name: Install APT dependencies
       run: |
-        sudo apt install graphviz
+        sudo apt install graphviz python3-poetry
 
     - name: Install Python dependencies
       run: |
