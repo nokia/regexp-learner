@@ -52,6 +52,6 @@ setup(
     test_suite="tests",
     tests_require=test_requirements,
     url="https://github.com/nokia/regexp-learner/",
-    version='0.0.1', # Use single quotes, see https://github.com/oceanprotocol/ocean.py/issues/194
+    version='0.1.0', # Use single quotes, see https://github.com/oceanprotocol/ocean.py/issues/194
     zip_safe=False,
 )
