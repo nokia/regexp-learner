@@ -278,6 +278,7 @@ class LstarObservationTable:
         """
         ret = self.find_mismatch_closeness()
         if verbose and ret is not None:
+            (s, a) = ret
             print("Not closed: s = %s a = %s" % (s, a))
         return ret is None
 
