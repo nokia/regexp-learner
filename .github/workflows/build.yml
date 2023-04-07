@@ -54,7 +54,7 @@ jobs:
           # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
           poetry run flake8 src/regexp_learner --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
-      - name: Run tests with tox and generate coverage report
+      - name: Run tests and generate coverage report
         run: |
           # tox -e py
           poetry run coverage run -m pytest
