@@ -12,3 +12,7 @@
 
 * Migrated to poetry
 * Fixed CI issues
+
+## 0.2.1 (2023-04-07)
+
+* Fixed CI issues
