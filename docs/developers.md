@@ -24,6 +24,16 @@ poetry run coverage xml
 tox -e py
 ```
 
+## Programming style
+
+To check the quality of the code, use `flake8`:
+```bash
+# Stops the build if there are Python syntax errors or undefined names
+poetry run flake8 src/ tests/ --count --select=E9,F63,F7,F82 --show-source --statistics
+# exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+poetry run flake8 src/ tests/ --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+```
+
 ## Documentation
 
 To build the documentation, run:
@@ -41,6 +51,20 @@ poetry run sphinx-build -b html docs/ docs/_build
 ```
 
 ## Publish a release
+### Initialization
+
+1. Create a token in Pypi.
+
+2. Configure this token in your GitHub repository (in the settings tab)
+* `PYPI_USERNAME`: `__token__`
+* `PYPI_TOKEN`: `pypi-xxxxxxxxxxxx`
+
+3. Configure this token in poetry so that you can use `poetry publish` in the future
+```bash
+poetry config pypi-token.pypi pypi-xxxxxxxxxxxx
+```
+
+### New release
 
 1. Update the changelog `HISTORY.md`, then add and commit this change:
 
@@ -55,4 +79,12 @@ git commit -m "Updated README.md"
 bumpversion patch # Possible values major / minor / patch
 git push
 git push --tags
+```
+
+3. Optionnally, in GitHub, create a release for the tag you have created.
+It publishes the package to PyPI (see `.github/workflows/publish_on_pypi.yml`).
+Alternatively, you could run:
+
+```bash
+poetry publish
 ```
