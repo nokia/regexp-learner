@@ -11,7 +11,7 @@ __maintainer__ = "Marc-Olivier Buob, Maxime Raynal"
 __email__      = "marc-olivier.buob@nokia-bell-labs.com, maxime.raynal@nokia.com"
 __copyright__  = "Copyright (C) 2019, Nokia"
 __license__    = "BSD-3"
-__version__ = '0.2.1'  # Use single quotes for bumpversion (see setup.cfg)
+__version__ = '1.0.0'  # Use single quotes for bumpversion (see setup.cfg)
 
 from .gold import *
 from .lstar import *
