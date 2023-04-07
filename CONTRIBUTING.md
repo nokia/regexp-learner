@@ -119,9 +119,9 @@ Make sure all your changes are committed (including an entry in `HISTORY.md`).
 Then run:
 
 ```bash
-bump2version patch # possible: major / minor / patch
+bumpversion patch # possible: major / minor / patch
 git push
 git push --tags
 ```
 
-GitLab will then deploy to PyPI if tests pass.
+GitHub will then deploy to PyPI if tests pass.

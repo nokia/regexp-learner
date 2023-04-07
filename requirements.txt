@@ -1,8 +1,0 @@
-ipython
-numpy
-pybgl
-setuptools
-nbsphinx
-Sphinx
-sphinx-rtd-theme
-sphinx_mdinclude
