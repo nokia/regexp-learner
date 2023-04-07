@@ -9,7 +9,7 @@
 ## Overview
 
 [regexp-learner](https://github.com/nokia/regexp-learner) is a [Python 3](http://python.org/) module providing the following algorithms:
-* __Angluin (1987):__ the L* algorithm is presented in _Learning regular sets from queries and couterexamples_, Dana Angluin, 1987 [[pdf](https://people.eecs.berkeley.edu/~dawnsong/teaching/s10/papers/angluin87.pdf)].
+* __Angluin (1987):__ the L* algorithm is presented in _Learning regular sets from queries and couterexamples_, Dana Angluin, 1987 [[pdf](https://people.eecs.berkeley.edu/~dawnsong/teaching/s10/papers/angluin87.pdf)], [[slides](https://github.com/nokia/regexp-learner/blob/master/Angluin.pdf)].
 * __Gold (1978):__ the Gold algorithm is presented in _Complexity of automaton identification from given data_, E. Mark Gold, 1987 [[pdf](http://sebastian.doc.gold.ac.uk/papers/Language_Learning/gold78complexity.pdf)].
 
 This module is built on top of:
@@ -26,11 +26,12 @@ A [jupyter notebook](https://pypi.org/project/jupyter/) is also provided test th
 * Open the desired notebook.
 * Run the cells.
 
-
 ## Links
 
-* [Installation](https://github.com/nokia/regexp-learner/wiki/Installation)
-* [Tests](https://github.com/nokia/regexp-leader/wiki/Test)
+* [Installation](https://github.com/nokia/regexp-learner/blob/master/docs/installation.md)
+* [Documentation](https://regexp-learner.readthedocs.io/en/latest/)
+* [Coverage](https://app.codecov.io/gh/nokia/regexp-learner)
+* [Wiki](https://github.com/nokia/regexp-learner/wiki)
 
 ## License
 
