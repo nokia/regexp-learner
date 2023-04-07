@@ -28,7 +28,8 @@ build:
       - poetry install --with docs
       - poetry build
       - pip install dist/*whl
-    post_build:
+    pre_build:
+      # Generate autodoc and call sphinx
       - make docs
 
 # Build documentation in the docs/ directory with Sphinx
