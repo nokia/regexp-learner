@@ -32,12 +32,12 @@ pytest-runner = "*"
 [tool.poetry.group.dev.dependencies]
 pip = "*"
 bump2version = "*"
-wheel = "*"
-watchdog = "*"
+#wheel = "*"
+#watchdog = "*"
 flake8 = "*"
 tox = "*"
 coverage = "*"
-twine = "*"
+#twine = "*"
 
 [tool.poetry.group.docs.dependencies]
 nbsphinx = "*"
