@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "regexp-learner"
-version = "0.1.0"
+version = '0.1.0'
 description = "Python3 module providing some algorithms to infer automata and regular expressions.\""
 authors = [
     "Marc-Olivier Buob <marc-olivier.buob@nokia-bell-labs.com>",
@@ -24,12 +24,10 @@ python = ">=3.8"
 pybgl = ">=0.9.3"
 numpy = ">=1.24.2"
 ipython = "*"
-Sphinx = ">=1.4"
-nbsphinx = "*"
-sphinx-rtd-theme = "*"
-sphinx_mdinclude = "*"
-pytest = ">=7.2.2"
-setuptools = ">=67.6.1"
+
+[tool.poetry.group.test.dependencies]
+pytest = ">=7.2.1"
+pytest-runner = "*"
 
 [tool.poetry.group.dev.dependencies]
 pip = "*"
@@ -39,13 +37,14 @@ watchdog = "*"
 flake8 = "*"
 tox = "*"
 coverage = "*"
-Sphinx = "*"
+twine = "*"
+
+[tool.poetry.group.docs.dependencies]
+nbsphinx = "*"
+Sphinx = ">=1.4"
 sphinx-rtd-theme = "*"
 sphinx_mdinclude = "*"
-twine = "*"
-pytest = "*"
-pytest-runner = "*"
 
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core>=1.2.0"]
 build-backend = "poetry.core.masonry.api"
