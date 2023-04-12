@@ -9,6 +9,7 @@ authors = [
 license = "BSD-3 license"
 readme = "README.md"
 packages = [{include = "regexp_learner", from = "src"}]
+include = ["AUTHORS.md", "CONTRIBUTING.md", "HISTORY.md", "README.md"]
 
 # https://docs.pytest.org/en/7.1.x/reference/customize.html
 [tool.pytest.ini_options]
