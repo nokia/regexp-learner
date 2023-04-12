@@ -7,7 +7,7 @@ You can contribute in many ways:
 
 ### Report bugs
 
-Report bugs [here](https://gitlabe2.ext.net.nokia.com/mandrews/hockeytracking/-/issues)
+Report bugs [here](https://github.com/nokia/regexp-learner/issues)
 
 If you are reporting a bug, please include:
 
@@ -17,23 +17,23 @@ If you are reporting a bug, please include:
 
 ### Fix Bugs
 
-Look through the GitLab issues for bugs. Anything tagged with _"Bug"_ and _"Help
+Look through the GitHub issues for bugs. Anything tagged with _"Bug"_ and _"Help
 wanted"_ is open to whoever wants to implement it.
 
 ### Implement Features
 
-Look through the GitLab issues for features. Anything tagged with _"Enhancement"_
+Look through the GitHub issues for features. Anything tagged with _"Enhancement"_
 and _"Help wanted"_ is open to whoever wants to implement it.
 
 ### Write Documentation
 
-Pattern clustering could always use more documentation, whether as part of the
-official Pattern clustering docs, in docstrings, or even on the web in blog posts,
+The package could always use more documentation, whether as part of the
+official package docs, in docstrings, or even on the web in blog posts,
 articles, and such.
 
 ### Submit Feedback
 
-The best way to send feedback is to [file an issue](https://gitlabe2.ext.net.nokia.com/mandrews/hockeytracking).
+The best way to send feedback is to [file an issue](https://github.com/nokia/regexp-learner/issues).
 
 If you are proposing a feature:
 
@@ -50,7 +50,7 @@ Ready to contribute? Here's how to set up the package for local development.
 2. Clone your fork locally:
 
 ```bash
-git clone git@github.com:your_name_here/pattern-clustering.git
+git clone git@github.com:your_name_here/regexp-learner.git
 ```
 
 3. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development:
@@ -82,7 +82,7 @@ python setup.py test or pytest
 tox
 ```
 
-7. Commit your changes and push your branch to GitLab:
+7. Commit your changes and push your branch to GitHub:
 
 ```bash
 git add .
@@ -90,7 +90,7 @@ git commit -m "Your detailed description of your changes."
 git push origin name-of-your-bugfix-or-feature
 ```
 
-7. Submit a pull request through the GitLab website.
+7. Submit a pull request through the GitHub website.
 
 ## Pull Request Guidelines
 
@@ -101,7 +101,7 @@ Before you submit a pull request, check that it meets these guidelines:
    your new functionality into a function with a docstring, and add the
    feature to the list in README.rst.
 3. The pull request should work for Python >=3.6. Check
-   https://gitlabe2.ext.net.nokia.com/mandrews/hockeytracking/-/pipelines
+   the [GitHub actions](https://github.com/nokia/regexp-learner/actions)
    and make sure that the tests pass for all supported Python versions.
 
 ## Tips
