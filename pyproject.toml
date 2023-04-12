@@ -6,7 +6,7 @@ authors = [
     "Marc-Olivier Buob <marc-olivier.buob@nokia-bell-labs.com>",
     "Maxime Raynal <maxime.raynal@nokia.com>",
 ]
-license = "BSD license"
+license = "BSD-3 license"
 readme = "README.md"
 packages = [{include = "regexp_learner", from = "src"}]
 
@@ -25,19 +25,25 @@ pybgl = ">=0.9.3"
 numpy = ">=1.24.2"
 ipython = "*"
 
+[tool.poetry.group.test]
+optional = true
+
 [tool.poetry.group.test.dependencies]
 pytest = ">=7.2.1"
 pytest-runner = "*"
 
+[tool.poetry.group.dev]
+optional = true
+
 [tool.poetry.group.dev.dependencies]
 pip = "*"
 bump2version = "*"
-#wheel = "*"
-#watchdog = "*"
 flake8 = "*"
 tox = "*"
 coverage = "*"
-#twine = "*"
+
+[tool.poetry.group.docs]
+optional = true
 
 [tool.poetry.group.docs.dependencies]
 nbsphinx = "*"
