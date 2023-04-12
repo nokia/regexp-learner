@@ -5,9 +5,9 @@ Welcome to the regexp-learner package documentation!
    :maxdepth: 3
    :caption: Contents:
 
-   installation
+   installation <installation.md>
    API documentation <regexp_learner>
-   Developer's corner <developers>
+   Developer's corner <developers.md>
    contributing
    authors
    history

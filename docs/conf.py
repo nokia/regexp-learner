@@ -62,13 +62,13 @@ source_suffix = [".rst", ".md", ".ipynb"]
 master_doc = "index"
 
 # General information about the project.
-project = "Hockey tracking - Arena"
+project = "regexp-learner"
 doc_title = project + " documentation"
 module_name = "regexp-learner"
 copyright = "2023, Nokia"
-author = "Marc-Olivier Buob, Matthew Andrews"
-description = "This project aims at tracking hockey players from a video capture."
-category = "Computer vision"
+author = "Marc-Olivier Buob, Maxime Raynal"
+description = "Python3 module providing some algorithms to infer automata and regular expressions"
+category = ""
 
 # The version info for the project you're documenting, acts as replacement
 # for |version| and |release|, also used in various other places throughout

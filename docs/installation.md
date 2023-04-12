@@ -19,7 +19,7 @@ sudo pip3 install sphinx_mdinclude --break-system-packages
 
 ## Windows
 
-* Install [poetry](sudo pip3 install dist/*whl --break-system-packages).
+* Install [poetry](https://pypi.org/project/poetry/).
 * Install [anaconda](https://www.anaconda.com/products/distribution).
 * Install [jupyter](https://jupyter.org/install).
 * Install [graphviz](https://jupyter.org/install).
