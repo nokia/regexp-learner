@@ -67,7 +67,7 @@ docs: ## generate Sphinx HTML documentation, including API docs
 	rm -rf docs/_build
 	rm -rf docs/_autosummary
 	poetry run sphinx-apidoc -f -o docs/ src/
-	poetry run sphinx-build -b html docs/ docs/_build
+	poetry run sphinx-build -b html docs/ docs/_build/html
 	$(BROWSER) docs/_build/html/index.html
 
 servedocs: docs ## compile the docs watching for changes
