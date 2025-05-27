@@ -1,35 +1,34 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__author__     = "Marc-Olivier Buob"
-__maintainer__ = "Marc-Olivier Buob"
-__email__      = "marc-olivier.buob@nokia-bell-labs.com"
-__copyright__  = "Copyright (C) 2018, Nokia"
-__license__    = "BSD-3"
-
 import numpy as np
 from operator import itemgetter
-from collections import defaultdict
+
 
 class LstarObservationTable:
     """
     :py:class:`LstarObservationTable` implements the L* observation table
     used by the :py:class:`Learner` in the Angluin algorithm.
     """
-    def __init__(self, a = "abcdefghijklmnopqrstuvwxyz"):
+    def __init__(self, a: list = "abcdefghijklmnopqrstuvwxyz"):
         """
         Constructor.
 
         Args:
+            a (list): The alphabet.
         """
         self.a = a
-        self.map_prefix = dict() # {str : int} maps prefixes with row indexes
-        self.map_suffix = dict() # {str : int} maps suffixes with column indexes
-        self.s = set()           # {str} keeps track of prefixes
-         # {0,1}^(|map_prefixes|x|map_suffixes|) matrix (observation table)
-        self.t = np.zeros((1, 1), dtype = np.bool_)
-         # {0,1}^(|map_prefixes|x|map_suffixes|) indicated parts of T that have been probed
-        self.probed = np.zeros((1, 1), dtype = np.bool_)
+        self.map_prefix = dict()
+        # {str : int} maps prefixes with row indexes
+        self.map_suffix = dict()
+        # {str : int} maps suffixes with column indexes
+        self.s = set()
+        # {str} keeps track of prefixes
+        self.t = np.zeros((1, 1), dtype=np.bool_)
+        # {0,1}^(|map_prefixes|x|map_suffixes|) matrix (observation table)
+        self.probed = np.zeros((1, 1), dtype=np.bool_)
+        # {0,1}^(|map_prefixes|x|map_suffixes|) indicated parts of T
+        # that have been probed
 
     @property
     def e(self) -> set:
@@ -37,12 +36,13 @@ class LstarObservationTable:
         Retrieves the observed suffixes.
 
         Returns:
-            The set of suffixes observed in this :py:class:`LstarObservationTable`.
+            The set of suffixes observed in this
+            :py:class:`LstarObservationTable`.
         """
         return set(self.map_suffix.keys())
 
     @staticmethod
-    def get_or_create_index(m: dict, k :str) -> int:
+    def get_or_create_index(m: dict, k: str) -> int:
         """
         Retrieves the index of a key in a dictionary. If the key
         is not in the dictionary, the key is inserted and mapped
@@ -65,17 +65,33 @@ class LstarObservationTable:
         """
         Inserts a row in this :py:class:`LstarObservationTable`.
         """
-        self.t      = np.insert(self.t,      self.t.shape[0],      values = 0, axis = 0)
-        self.probed = np.insert(self.probed, self.probed.shape[0], values = 0, axis = 0)
+        self.t = np.insert(
+            self.t,
+            self.t.shape[0],
+            values=0, axis=0
+        )
+        self.probed = np.insert(
+            self.probed,
+            self.probed.shape[0],
+            values=0, axis=0
+        )
 
     def add_col(self):
         """
         Inserts a column in this :py:class:`LstarObservationTable`.
         """
-        self.t      = np.insert(self.t,      self.t.shape[1],      values = 0, axis = 1)
-        self.probed = np.insert(self.probed, self.probed.shape[1], values = 0, axis = 1)
+        self.t = np.insert(
+            self.t,
+            self.t.shape[1],
+            values=0, axis=1
+        )
+        self.probed = np.insert(
+            self.probed,
+            self.probed.shape[1],
+            values=0, axis=1
+        )
 
-    def add_prefix(self, s :str) -> tuple:
+    def add_prefix(self, s: str) -> tuple[int, bool]:
         """
         Inserts a prefix in this :py:class:`LstarObservationTable`.
 
@@ -85,7 +101,8 @@ class LstarObservationTable:
         Returns:
             A ``(i, added)`` tuple where:
 
-            - ``i`` is the index of ``s`` in this :py:class:`LstarObservationTable`
+            - ``i`` is the index of ``s`` in this
+              :py:class:`LstarObservationTable`;
             - ``added`` equals ``True`` if ``s`` was not yet in this
               :py:class:`LstarObservationTable`, ``False`` otherwise.
         """
@@ -96,7 +113,7 @@ class LstarObservationTable:
             self.add_row()
         return (i, added)
 
-    def add_suffix(self, e :str) -> tuple:
+    def add_suffix(self, e: str) -> tuple:
         """
         Inserts a suffix in this :py:class:`LstarObservationTable`.
 
@@ -106,7 +123,8 @@ class LstarObservationTable:
         Returns:
             A ``(i, added)`` tuple where:
 
-            - ``i`` is the index of ``e`` in this :py:class:`LstarObservationTable`
+            - ``i`` is the index of ``e`` in this
+              :py:class:`LstarObservationTable`;
             - ``added`` equals ``True`` if ``e`` was not yet in this
               :py:class:`LstarObservationTable`, ``False`` otherwise.
         """
@@ -117,9 +135,9 @@ class LstarObservationTable:
             self.add_col()
         return (j, added)
 
-    def set(self, s :str, e: str, accepted :bool = True):
+    def set(self, s: str, e: str, accepted: bool = True):
         """
-        Fill this :py:class:`LstarObservationTable` according to a given
+        Fills this :py:class:`LstarObservationTable` according to a given
         prefix, a given suffix, and a boolean indicating whether their
         concatenation belongs to the :py:class:`Teacher`'s language.
 
@@ -134,7 +152,7 @@ class LstarObservationTable:
         self.t[i, j] = accepted
         self.probed[i, j] = True
 
-    def get_row(self, s :str) -> int:
+    def get_row(self, s: str) -> int:
         """
         Retrieves the row index related to a given prefix.
         See also :py:meth:`LstarObservationTable.row`.
@@ -147,7 +165,7 @@ class LstarObservationTable:
         """
         return self.map_prefix.get(s)
 
-    def get_col(self, e :str) -> int:
+    def get_col(self, e: str) -> int:
         """
         Retrieves the column index related to a given prefix.
         See also :py:meth:`LstarObservationTable.col`.
@@ -161,7 +179,7 @@ class LstarObservationTable:
 
         return self.map_suffix.get(e)
 
-    def get(self, s :str, e :str) -> bool:
+    def get(self, s: str, e: str) -> bool:
         """
         Probes this :py:class:`LstarObservationTable` for a given prefix
         and a given suffix.
@@ -174,14 +192,17 @@ class LstarObservationTable:
             The observation related to ``s + e``.
         """
         i = self.get_row(s)
-        if i is None: return None
+        if i is None:
+            return None
 
         j = self.get_col(e)
-        if j is None: return None
+        if j is None:
+            return None
 
-        if self.probed[i, j] == False: return None
+        if not self.probed[i, j]:
+            return None
+
         ret = self.t[i, j]
-
         return bool(ret)
 
     def to_html(self) -> str:
@@ -198,14 +219,18 @@ class LstarObservationTable:
             return repr(s) if s else "&#x3b5;"
 
         def prefix_to_html(t, s) -> str:
-            return "<font color='red'>%s</font>" % str_to_html(s) if s in t.s \
+            return (
+                "<font color='red'>%s</font>" % str_to_html(s) if s in t.s
                 else str_to_html(s)
+            )
 
         sorted_prefixes = [
-            tup[0] for tup in sorted(self.map_prefix.items(), key=itemgetter(1))
+            tup[0]
+            for tup in sorted(self.map_prefix.items(), key=itemgetter(1))
         ]
         sorted_suffixes = [
-            tup[0] for tup in sorted(self.map_suffix.items(), key=itemgetter(1))
+            tup[0]
+            for tup in sorted(self.map_suffix.items(), key=itemgetter(1))
         ]
         return """
         <table>
@@ -213,22 +238,24 @@ class LstarObservationTable:
             %(rows)s
         </table>
         """ % {
-            "header" : "<tr><th></th>%(ths)s</tr>" % {
-                "ths" : "".join([
-                    "<td>%s</td>" % str_to_html(suffix) for suffix in sorted_suffixes
+            "header": "<tr><th></th>%(ths)s</tr>" % {
+                "ths": "".join([
+                    "<td>%s</td>" % str_to_html(suffix)
+                    for suffix in sorted_suffixes
                 ]),
             },
-            "rows" : "".join([
+            "rows": "".join([
                 "<tr><th>%(prefix)s</th>%(cells)s</tr>" % {
-                    "cells" : "".join([
-                        "<td>%s</td>" % bool_to_html(self.get(s, e)) for e in sorted_suffixes
+                    "cells": "".join([
+                        "<td>%s</td>" % bool_to_html(self.get(s, e))
+                        for e in sorted_suffixes
                     ]),
-                    "prefix" : prefix_to_html(self, s),
+                    "prefix": prefix_to_html(self, s),
                 } for s in sorted_prefixes
             ]),
         }
 
-    def row(self, s :str) -> bytes:
+    def row(self, s: str) -> bytes:
         """
         Retrieves the row in this :py:class:`LstarObservationTable`.
 
@@ -242,20 +269,20 @@ class LstarObservationTable:
         # tobytes() is used to get something hashable
         return self.t[i, :].tobytes() if i is not None else None
 
-    #(s1, a) = self.o.find_mismatch_closeness()
-    def find_mismatch_closeness(self)  -> tuple:
+    # (s1, a) = self.o.find_mismatch_closeness()
+    def find_mismatch_closeness(self) -> tuple:
         """
-        Search a pair (prefix, symbol) that shows this :py:class:`LstarObservationTable`
-        is not closed.
+        Searches a pair (prefix, symbol) that shows this
+        :py:class:`LstarObservationTable` is not closed.
 
         Returns:
             A ``(s, a)`` pair (if found), ``None`` otherwise, where:
 
             - ``s`` is a prefix of this :py:class:`LstarObservationTable`;
-            - ``a`` is a symbol of the alphabet of this :py:class:`LstarObservationTable`
-              (i.e., ``self.a``)
+            - ``a`` is a symbol of the alphabet of this
+              :py:class:`LstarObservationTable` (i.e., ``self.a``)
         """
-        assert self.probed.all()
+        assert self.probed.all(), self.probed
         rows = {self.row(s) for s in self.s}
         for s in self.s:
             for a in self.a:
@@ -264,10 +291,12 @@ class LstarObservationTable:
                     return (s, a)
         return None
 
-    def is_closed(self, verbose :bool = False) -> bool:
+    def is_closed(self, verbose: bool = False) -> bool:
         """
         Checks whether this :py:class:`LstarObservationTable` is closed
-        (see Angluin's paper or `Angluin.pdf <https://github.com/nokia/regexp-learner/blob/master/Angluin.pdf>`__ in this repository).
+        (see Angluin's paper or `Angluin.pdf
+        <https://github.com/nokia/regexp-learner/blob/master/Angluin.pdf>`__
+         in this repository).
 
         Args:
             verbose (bool): Pass ``True`` to print debug information.
@@ -279,23 +308,25 @@ class LstarObservationTable:
         ret = self.find_mismatch_closeness()
         if verbose and ret is not None:
             (s, a) = ret
-            print("Not closed: s = %s a = %s" % (s, a))
+            print(f"Not closed: {s=} {a=}")
         return ret is None
 
     def find_mismatch_consistency(self) -> tuple:
         """
-        Search a pair (prefix, symbol) that shows this :py:class:`LstarObservationTable`
-        is not closed.
+        Search a pair (prefix, symbol) that shows this
+        :py:class:`LstarObservationTable` is not closed.
 
         Returns:
             A ``(s1, s2, a, e)`` pair (if found), ``None`` otherwise, where:
 
-            - ``s1`` and ``s2`` are two prefixes of this :py:class:`LstarObservationTable`;
-            - ``a`` is a symbol of the alphabet of this :py:class:`LstarObservationTable`
+            - ``s1`` and ``s2`` are two prefixes of this
+              :py:class:`LstarObservationTable`;
+            - ``a`` is a symbol of the alphabet of this
+              :py:class:`LstarObservationTable`
               (i.e., ``self.a``)
             - ``e`` is a contradicting suffix w.r.t. ``s1`` and ``s2``.
         """
-        assert self.probed.all()
+        assert self.probed.all(), self.probed
         for (i1, s1) in enumerate(self.s):
             for (i2, s2) in enumerate(self.s):
                 if i2 <= i1:
@@ -309,10 +340,12 @@ class LstarObservationTable:
                                 return (s1, s2, a, e)
         return None
 
-    def is_consistent(self, verbose :bool = False) -> bool:
+    def is_consistent(self, verbose: bool = False) -> bool:
         """
         Checks whether this :py:class:`LstarObservationTable` is consistent
-        (see Angluin's paper or `Angluin.pdf <https://github.com/nokia/regexp-learner/blob/master/Angluin.pdf>`__ in this repository).
+        (see Angluin's paper or `Angluin.pdf
+        <https://github.com/nokia/regexp-learner/blob/master/Angluin.pdf>`__
+        in this repository).
 
         Args:
             verbose (bool): Pass ``True`` to print debug information.
@@ -324,5 +357,5 @@ class LstarObservationTable:
         ret = self.find_mismatch_consistency()
         if verbose and ret is not None:
             (s1, s2, a, e) = ret
-            print("Not consistent: s1 = %s s2 = %s a = %s e = %s" % (s1, s2, a, e))
+            print(f"Not consistent: {s1=} {s2=} {a=} {e=}")
         return ret is None

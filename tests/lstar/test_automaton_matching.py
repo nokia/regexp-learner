@@ -4,12 +4,14 @@
 # This file is part of the regexp-learner project
 # https://github.com/nokia/regexp-learner
 
-from pybgl.automaton import make_automaton
-from pybgl.graphviz import dotstr_to_html
-from pybgl.property_map import make_func_property_map
-from pybgl.html import html
+from pybgl import (
+    graph_to_html,
+    make_automaton,
+    make_func_property_map,
+)
+from regexp_learner import automaton_match
+from ..common import html
 
-from regexp_learner.lstar.automaton_match import automaton_match
 
 G1 = make_automaton(
     [
@@ -52,45 +54,39 @@ G5 = make_automaton(
 
 
 def test_automaton_match12():
-    svg = dotstr_to_html(G1.to_dot())
-    html(svg)
-    svg = dotstr_to_html(G2.to_dot())
-    html(svg)
-
+    html(graph_to_html(G1))
+    html(graph_to_html(G2))
     obtained = automaton_match(G1, G2)
     assert obtained == "ba"
+    html(f"These automata don't match for w = {obtained}")
 
-    html("These automata don't match for w = %r" % obtained)
 
 def test_automaton_match11():
-    html(dotstr_to_html(G1.to_dot()))
-    html(dotstr_to_html(G1.to_dot()))
-    assert automaton_match(G1, G1) == None
-
+    html(graph_to_html(G1))
+    html(graph_to_html(G1))
+    assert automaton_match(G1, G1) is None
     html("These automata match")
 
+
 def test_automaton_match13():
-    html(dotstr_to_html(G1.to_dot()))
-    html(dotstr_to_html(G3.to_dot()))
+    html(graph_to_html(G1))
+    html(graph_to_html(G3))
     expected = "b"
 
     obtained = automaton_match(G3, G1)
-    assert expected == obtained, "expected = %r obtained = %r" % (expected, obtained)
-
+    assert expected == obtained, f"{expected=} {obtained=}"
     obtained = automaton_match(G1, G3)
-    assert expected == obtained, "expected = %r obtained = %r" % (expected, obtained)
+    assert expected == obtained, f"{expected=} {obtained=}"
+    html(f"These automata don't match for w = {obtained}")
 
-    html("These automata don't match for w = %r" % obtained)
 
 def test_automaton_match45():
-    html(dotstr_to_html(G4.to_dot()))
-    html(dotstr_to_html(G5.to_dot()))
+    html(graph_to_html(G4))
+    html(graph_to_html(G5))
     expected = "b"
 
     obtained = automaton_match(G4, G5)
-    assert expected == obtained, "expected = %r obtained = %r" % (expected, obtained)
-
+    assert expected == obtained, f"{expected=} {obtained=}"
     obtained = automaton_match(G5, G4)
-    assert expected == obtained, "expected = %r obtained = %r" % (expected, obtained)
-
-    html("These automata don't match for w = %r" % obtained)
+    assert expected == obtained, f"{expected=} {obtained=}"
+    html("These automata don't match for w = {obtained}")

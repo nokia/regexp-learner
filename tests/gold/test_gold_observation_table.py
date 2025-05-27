@@ -4,13 +4,14 @@
 # This file is part of the regexp-learner project
 # https://github.com/nokia/regexp-learner
 
-from regexp_learner.gold.observation_table import GoldObservationTable
+from regexp_learner import GoldObservationTable
 
-def test_gold_observation_table_check_input_consistency():
+
+def test_gold_observation_table1():
     s_plus = s_minus = ["a"]
     sigma = "a"
     try:
-        obs_table = GoldObservationTable(
+        GoldObservationTable(
             s_plus,
             s_minus,
             sigma
@@ -19,10 +20,13 @@ def test_gold_observation_table_check_input_consistency():
     except Exception:
         assert True
 
+
+def test_gold_observation_table2():
+    s_plus = ["a"]
     s_minus = []
     sigma = ""
     try:
-        obs_table = GoldObservationTable(
+        GoldObservationTable(
             s_plus,
             s_minus,
             sigma
@@ -31,9 +35,14 @@ def test_gold_observation_table_check_input_consistency():
     except Exception:
         assert True
 
+
+def test_gold_observation_table3():
+    s_plus = ["a"]
+    s_minus = []
+    sigma = ""
     red_states = ["a"]
     try:
-        obs_table = GoldObservationTable(
+        GoldObservationTable(
             s_plus,
             s_minus,
             sigma=sigma,
@@ -43,14 +52,13 @@ def test_gold_observation_table_check_input_consistency():
     except Exception:
         assert True
 
+
+def test_gold_observation_table4():
     s_plus = ["a"]
     s_minus = []
     sigma = "a"
-    try:
-        obs_table = GoldObservationTable(
-            s_plus,
-            s_minus,
-            sigma=sigma
-        )
-    except Exception:
-        assert False
+    GoldObservationTable(
+        s_plus,
+        s_minus,
+        sigma=sigma
+    )

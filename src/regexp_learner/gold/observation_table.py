@@ -5,10 +5,17 @@
 # https://github.com/nokia/regexp-learner
 
 from collections import defaultdict
-from pybgl.property_map import make_assoc_property_map
-from pybgl.automaton import Automaton, make_automaton
-from pybgl.trie import Trie
-from ..strings import is_prefix_closed, suffixes
+from pybgl import (
+    Automaton,
+    make_assoc_property_map,
+    make_automaton,
+    Trie,
+)
+from ..strings import (
+    is_prefix_closed,
+    suffixes,
+)
+
 
 class GoldObservationTable:
     """
@@ -23,7 +30,7 @@ class GoldObservationTable:
         self,
         s_plus: set,
         s_minus: set,
-        sigma :str = 'abcdefghijklmnopqrstuvwxyz0123456789 ',
+        sigma: str = 'abcdefghijklmnopqrstuvwxyz0123456789 ',
         red_states: set = {''},
         fill_holes: bool = False,
         blue_state_choice_func: callable = min,
@@ -61,7 +68,9 @@ class GoldObservationTable:
             show_tables_as_html (bool): Pass ``True`` to output in HTML
                 the important steps of the algorithm.
         """
-        GoldObservationTable.check_input_consistency(s_plus, s_minus, sigma, red_states)
+        GoldObservationTable.check_input_consistency(
+            s_plus, s_minus, sigma, red_states
+        )
         self.blue_state_choice_func = blue_state_choice_func
         self.red_state_choice_func = red_state_choice_func
         self.fill_holes = fill_holes
@@ -69,7 +78,7 @@ class GoldObservationTable:
         self.s_minus = set(s_minus)
         self.sigma = sigma
         self.exp = sorted(
-            list( # Build suffix closed set EXP
+            list(  # Build suffix closed set EXP
                 set(
                     suffix
                     for string in s_plus
@@ -101,9 +110,15 @@ class GoldObservationTable:
         }
 
     @staticmethod
-    def check_input_consistency(s_plus, s_minus, sigma, red_states):
+    def check_input_consistency(
+        s_plus: iter,
+        s_minus: iter,
+        sigma: str,
+        red_states: set
+    ):
         """
-        Checks that the input given to build an observation table is consistent.
+        Checks that the input given to build an observation table
+        is consistent.
 
         Args:
             s_plus (iter): An iterable of strings that are
@@ -158,7 +173,7 @@ class GoldObservationTable:
             - :py:attr:`STAR` otherwise
         """
         return (
-            GoldObservationTable.ONE  if w in self.s_plus  else
+            GoldObservationTable.ONE if w in self.s_plus else
             GoldObservationTable.ZERO if w in self.s_minus else
             GoldObservationTable.STAR
         )
@@ -199,7 +214,10 @@ class GoldObservationTable:
             blue_state
             for (blue_state, blue_state_val) in self.blue_states.items()
             if all(
-                GoldObservationTable.are_obviously_different(blue_state_val, red_state_val)
+                GoldObservationTable.are_obviously_different(
+                    blue_state_val,
+                    red_state_val
+                )
                 for red_state_val in self.red_states.values()
             )
         ]
@@ -220,11 +238,15 @@ class GoldObservationTable:
         blue_to_promote = self.choose_obviously_different_blue_state()
         if blue_to_promote is None:
             return False
-        self.red_states[blue_to_promote] = self.blue_states.pop(blue_to_promote)
+        self.red_states[blue_to_promote] = self.blue_states.pop(
+            blue_to_promote
+        )
         for a in self.sigma:
             if blue_to_promote + a not in self.red_states:
                 self.blue_states[blue_to_promote + a] = [
-                    self.get_value_from_sample(blue_to_promote + a + suffix)
+                    self.get_value_from_sample(
+                        blue_to_promote + a + suffix
+                    )
                     for suffix in self.exp
                 ]
         return True
@@ -243,7 +265,9 @@ class GoldObservationTable:
         candidates = [
             red_state
             for (red_state, red_state_val) in self.red_states.items()
-            if not GoldObservationTable.are_obviously_different(row, red_state_val)
+            if not GoldObservationTable.are_obviously_different(
+                row, red_state_val
+            )
         ]
         if not candidates:
             return None
@@ -251,12 +275,16 @@ class GoldObservationTable:
 
     def try_and_fill_holes(self):
         """
-        Tries to fill all the holes (:py:attr:`STAR`) that are in the observation
-        table after the promoting phase.
+        Tries to fill all the holes (:py:attr:`STAR`) that are in the
+        observation table after the promoting phase.
 
         Returns:
              ``True`` if it succeeds, ``False`` otherwise.
         """
+        STAR = GoldObservationTable.STAR
+        ZERO = GoldObservationTable.ZERO
+        ONE = GoldObservationTable.ONE
+
         if not self.fill_holes:
             return True
 
@@ -266,15 +294,15 @@ class GoldObservationTable:
                 return False
             red_state_val = self.red_states[red_state]
             self.red_states[red_state] = [
-                red_state_val[i] if red_state_val[i] != GoldObservationTable.STAR else
-                blue_state_val[i]
+                red_state_val[i] if red_state_val[i] != STAR
+                else blue_state_val[i]
                 for i in range(self.row_length)
             ]
 
         self.red_states = {
             red_state: [
-                GoldObservationTable.ONE if red_state_val[i] != GoldObservationTable.ZERO else
-                GoldObservationTable.ZERO
+                ONE if red_state_val[i] != ZERO
+                else ZERO
                 for i in range(self.row_length)
             ] for red_state, red_state_val in self.red_states.items()
         }
@@ -290,7 +318,7 @@ class GoldObservationTable:
             ]
         return True
 
-    def to_automaton(self) -> tuple:
+    def to_automaton(self) -> tuple[Automaton, bool]:
         """
         Builds an automaton from the observation table information.
 
@@ -299,13 +327,17 @@ class GoldObservationTable:
             :py:class:`pybgl.Automaton`;
             ``success`` equals ``True`` iff the algorithm succeeded in building
             an automaton.
-            If ``False``, ``g`` is the Prefix Tree Acceptor (PTA) accepting ``s_plus``.
+            If ``False``, ``g`` is the Prefix Tree Acceptor (PTA) accepting
+            ``s_plus``.
         """
         if self.fill_holes:
             if not self.try_and_fill_holes():
                 return False, self.make_pta()
         epsilon_idx = self.exp.index("")
-        states = sorted(list(self.red_states.keys()), key=lambda s: (len(s), s))
+        states = sorted(
+            list(self.red_states.keys()),
+            key=lambda s: (len(s), s)
+        )
 
         transitions = []
         if self.fill_holes:
@@ -336,7 +368,9 @@ class GoldObservationTable:
         final_states = defaultdict(
             bool,
             {
-                states.index(state): (self.red_states[state][epsilon_idx] == self.ONE)
+                states.index(state): (
+                    self.red_states[state][epsilon_idx] == self.ONE
+                )
                 for state in states
             }
         )
@@ -384,8 +418,8 @@ class GoldObservationTable:
             g (Automaton): An automaton instance.
 
         Returns:
-            ``True`` if ``g`` accepts the positive examples and rejects the negative
-            examples, ``False`` otherwise.
+            ``True`` if ``g`` accepts the positive examples and rejects
+            the negative examples, ``False`` otherwise.
         """
         return True
 

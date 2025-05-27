@@ -4,8 +4,9 @@
 # This file is part of the regexp-learner project
 # https://github.com/nokia/regexp-learner
 
-from pybgl.html import html
-from regexp_learner.lstar.observation_table import LstarObservationTable
+from regexp_learner import LstarObservationTable
+from ..common import html
+
 
 def test_observation_table_get_set():
     o = LstarObservationTable("ab")
@@ -18,18 +19,23 @@ def test_observation_table_get_set():
     o.set("a", "a", True)
     html(o.to_html())
 
-    assert o.get("a", "")  == False
-    assert o.get("b", "")  == True
-    assert o.get("aa", "") == True
-    assert o.get("ab", "") == False
-    assert o.get("a", "a") == True
-    assert o.get("", "a")  == None
+    assert o.get("a", "") is False
+    assert o.get("b", "") is True
+    assert o.get("aa", "") is True
+    assert o.get("ab", "") is False
+    assert o.get("a", "a") is True
+    assert o.get("", "a") is None
+
 
 def test_observation_table_is_closed():
     def check(o, expected):
         is_closed = o.is_closed()
         html(o.to_html())
-        html("This observation table is %scomplete" % ("" if is_closed else "<b>not</b> "))
+        html(
+            "This observation table is %scomplete" % (
+                "" if is_closed else "<b>not</b> "
+            )
+        )
         assert is_closed == expected
 
     alphabet = "ab"
@@ -41,7 +47,8 @@ def test_observation_table_is_closed():
     check(o, False)
 
     # Probing SA.
-    for a in alphabet: o.set(a, "", True)
+    for a in alphabet:
+        o.set(a, "", True)
     check(o, True)
 
     # Missing rows
@@ -57,11 +64,16 @@ def test_observation_table_is_closed():
     o.set("a", "", True)
     check(o, False)
 
+
 def test_observation_table_is_consistent():
     def check(o, expected):
         is_consistent = o.is_consistent()
         html(o.to_html())
-        html("This observation table is %sconsistent" % ("" if is_consistent else "<b>not</b> "))
+        html(
+            "This observation table is %sconsistent" % (
+                "" if is_consistent else "<b>not</b> "
+            )
+        )
         assert is_consistent == expected
 
     o = LstarObservationTable("ab")
@@ -81,4 +93,3 @@ def test_observation_table_is_consistent():
     o.set("aa", "", True)
     o.set("ab", "", False)
     check(o, False)
-

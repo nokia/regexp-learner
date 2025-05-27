@@ -4,21 +4,22 @@
 # This file is part of the regexp-learner project
 # https://github.com/nokia/regexp-learner
 
-__author__     = "Marc-Olivier Buob"
-__maintainer__ = "Marc-Olivier Buob"
-__email__      = "marc-olivier.buob@nokia-bell-labs.com"
-__copyright__  = "Copyright (C) 2018, Nokia"
-__license__    = "BSD-3"
+from pybgl import (
+    Automaton,
+    graph_to_html,
+    in_ipynb,
+    make_automaton,
+    make_func_property_map,
+)
+from regexp_learner import (
+    Learner,
+    LstarObservationTable,
+    Teacher,
+    automaton_match,
+    make_automaton_from_observation_table,
+)
+from ..common import html
 
-from pybgl.automaton            import Automaton, is_complete, make_automaton
-from pybgl.graphviz             import dotstr_to_html
-from pybgl.html                 import html
-from pybgl.property_map         import make_func_property_map
-
-from regexp_learner.lstar.automaton_match   import automaton_match
-from regexp_learner.lstar.observation_table import LstarObservationTable
-from regexp_learner.lstar.learner           import Learner, make_automaton_from_observation_table
-from regexp_learner.lstar.teacher           import Teacher
 
 G1 = make_automaton(
     [
@@ -59,35 +60,52 @@ G5 = make_automaton(
     make_func_property_map(lambda q: False)
 )
 
+
 def test_make_automaton_from_observation_table():
     # Build observation table
     o = LstarObservationTable("ab")
     o.s = {"", "b", "ba"}
-    o.set("",    "", False); o.set("",    "a", False)
-    o.set("b",   "", True) ; o.set("b",   "a", False)
-    o.set("a",   "", False); o.set("a",   "a", False)
-    o.set("ba",  "", False); o.set("ba",  "a", True)
-    o.set("bb",  "", True) ; o.set("bb",  "a", False)
-    o.set("baa", "", True) ; o.set("baa", "a", False)
-    o.set("bab", "", True) ; o.set("bab", "a", False)
+    o.set("", "", False)
+    o.set("", "a", False)
+    o.set("b", "", True)
+    o.set("b", "a", False)
+    o.set("a", "", False)
+    o.set("a", "a", False)
+    o.set("ba", "", False)
+    o.set("ba", "a", True)
+    o.set("bb", "", True)
+    o.set("bb", "a", False)
+    o.set("baa", "", True)
+    o.set("baa", "a", False)
+    o.set("bab", "", True)
+    o.set("bab", "a", False)
     is_consistent = o.is_consistent()
     is_closed = o.is_closed()
 
     # Check
     html(o.to_html())
-    html("This observation table is %sconsistent" % ("" if is_consistent else "<b>not</b> "))
-    html("This observation table is %sclosed"   % ("" if is_closed   else "<b>not</b> "))
+    html(
+        "This observation table is %sconsistent" % (
+            "" if is_consistent else "<b>not</b> "
+        )
+    )
+    html(
+        "This observation table is %sclosed" % (
+            "" if is_closed else "<b>not</b> "
+        )
+    )
     assert is_consistent
     assert is_closed
 
-    # Build and display corresponding automatonbb
+    # Build and display the corresponding automaton
     h = make_automaton_from_observation_table(o)
 
     html("<b>obtained</b>")
-    html(dotstr_to_html(h.to_dot()))
+    html(graph_to_html(h))
     html("<b>expected</b>")
-    html(dotstr_to_html(G1.to_dot()))
-    assert automaton_match(G1, h) == None
+    html(graph_to_html(G1))
+    assert automaton_match(G1, h) is None
+
 
 def test_make_automaton_from_observation_table2():
     # Build observation table
@@ -103,8 +121,16 @@ def test_make_automaton_from_observation_table2():
 
     # Check
     html(o.to_html())
-    html("This observation table is %sconsistent" % ("" if is_consistent else "<b>not</b> "))
-    html("This observation table is %sclosed"   % ("" if is_closed   else "<b>not</b> "))
+    html(
+        "This observation table is %sconsistent" % (
+            "" if is_consistent else "<b>not</b> "
+        )
+    )
+    html(
+        "This observation table is %sclosed" % (
+            "" if is_closed else "<b>not</b> "
+        )
+    )
     assert is_consistent
     assert is_closed
 
@@ -118,30 +144,36 @@ def test_make_automaton_from_observation_table2():
         make_func_property_map(lambda q: q == 1)
     )
     html("<b>obtained</b>")
-    html(dotstr_to_html(h.to_dot()))
+    html(graph_to_html(h))
     html("<b>expected</b>")
-    html(dotstr_to_html(expected.to_dot()))
-    assert automaton_match(expected, h) == None
+    html(graph_to_html(expected))
+    assert automaton_match(expected, h) is None
 
-def test_learners(gs = [G1, G2, G3, G4, G5], verbose = True):
-    def test_learner(g :Automaton, verbose :bool = True):
-        if not is_complete(g):
-            html(dotstr_to_html(g.to_dot()))
-            html("Ignored, this automaton must be finite, deterministic and complete")
+
+def test_learners(gs: list[Automaton] = [G1, G2, G3, G4, G5]):
+    verbose = in_ipynb()
+
+    def test_learner(g):
+        if not g.is_complete():
+            html(graph_to_html(g))
+            html(
+                "Ignored, this automaton must be finite, "
+                "deterministic and complete"
+            )
             return
 
         teacher = Teacher(g)
         html("<b>Teacher</b>")
-        html(dotstr_to_html(teacher.g.to_dot()))
+        html(graph_to_html(teacher.g))
 
         learner = Learner(teacher)
-        h = learner.learn(verbose = verbose)
+        h = learner.learn(verbose=verbose)
         html("<b>Learner</b>")
-        html(dotstr_to_html(h.to_dot()))
+        html(graph_to_html(h))
 
-        assert automaton_match(g, h) == None
+        assert automaton_match(g, h) is None
         html(":-)")
 
     for (i, g) in enumerate(gs):
-        html("<h3>Test G%d</h3>" % (i + 1))
-        test_learner(g, verbose)
+        html(f"<h3>Test G{i + 1}</h3>")
+        test_learner(g)

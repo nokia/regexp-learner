@@ -4,6 +4,7 @@
 # This file is part of the regexp-learner project
 # https://github.com/nokia/regexp-learner
 
+
 def prefixes(s: str) -> iter:
     """
     Lists all the prefixes of an arbitrary string
@@ -21,6 +22,7 @@ def prefixes(s: str) -> iter:
         The prefixes of ``s``.
     """
     return (s[:i] for i in range(len(s) + 1))
+
 
 def is_prefix_closed(strings: set) -> bool:
     """
@@ -46,6 +48,7 @@ def is_prefix_closed(strings: set) -> bool:
         for prefix in prefixes(s)
     )
 
+
 def suffixes(s: str):
     """
     Lists all the suffixes of an arbitrary string
@@ -63,6 +66,7 @@ def suffixes(s: str):
         The suffixes of ``s``.
     """
     return (s[i:] for i in range(len(s) + 1))
+
 
 def is_suffix_closed(str_set) -> bool:
     """

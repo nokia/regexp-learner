@@ -4,5 +4,5 @@
 # This file is part of the regexp-learner project
 # https://github.com/nokia/regexp-learner
 
-from .observation_table import *
-from .gold import *
+from .observation_table import GoldObservationTable
+from .gold import gold

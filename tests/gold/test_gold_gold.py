@@ -4,18 +4,26 @@
 # This file is part of the regexp-learner project
 # https://github.com/nokia/regexp-learner
 
-from regexp_learner.gold.gold import gold
-from pybgl.automaton import num_vertices, num_edges
+from pybgl import in_ipynb
+from regexp_learner import gold
+
 
 def test_gold_gold():
+    verbose = in_ipynb()
     s_plus = {"abb", "bb", "bba", "bbb", "babb"}
     s_minus = {"", "a", "ba"}
     sigma = "ab"
-    (g, success) = gold(s_plus, s_minus, sigma=sigma)
+    (g, success) = gold(
+        s_plus, s_minus,
+        sigma=sigma, verbose=verbose
+    )
     assert success
-    assert num_vertices(g) == 3
-    assert num_edges(g) == 6
-    (g, success) = gold(s_plus, s_minus, sigma=sigma, fill_holes=True, verbose=True)
+    assert g.num_vertices() == 3
+    assert g.num_edges() == 6
+    (g, success) = gold(
+        s_plus, s_minus,
+        sigma=sigma, fill_holes=True, verbose=verbose
+    )
     assert success
-    assert num_vertices(g) == 3
-    assert num_edges(g) == 6
+    assert g.num_vertices() == 3
+    assert g.num_edges() == 6

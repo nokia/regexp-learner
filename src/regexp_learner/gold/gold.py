@@ -4,20 +4,23 @@
 # This file is part of the regexp-learner project
 # https://github.com/nokia/regexp-learner
 
-from pybgl.automaton import Automaton
-from pybgl.html import html
+from pybgl import (
+    Automaton,
+    html,
+)
 from .observation_table import GoldObservationTable
+
 
 def gold(
     s_plus: iter,
     s_minus: iter,
-    sigma: str ="abcdefghijklmnopqrstuvwxyz0123456789 ",
+    sigma: str = "abcdefghijklmnopqrstuvwxyz0123456789 ",
     red_states: set = {""},
     fill_holes: bool = False,
     blue_state_choice_func: callable = min,
     red_state_choice_func: callable = min,
     verbose: bool = False,
-) -> tuple:
+) -> tuple[Automaton, bool]:
     """
     Runs the GOLD algorithm.
 
