@@ -30,7 +30,7 @@ build:
       - pip install dist/*whl
     pre_build:
       # Generate autodoc and call sphinx
-      - make docs
+      - poetry run make docs
 
 # Build documentation in the docs/ directory with Sphinx
 sphinx:
