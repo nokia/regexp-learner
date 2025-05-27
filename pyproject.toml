@@ -21,10 +21,10 @@ testpaths = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.8"
-pybgl = ">=0.9.3"
-numpy = ">=1.24.2"
-ipython = "*"
+python = ">=3.10, <4.0"
+pybgl = ">=0.11.1"
+numpy = ">=2.2.6"
+ipython = ">= 8.10.0"
 
 [tool.poetry.group.test]
 optional = true
@@ -47,9 +47,9 @@ coverage = "*"
 optional = true
 
 [tool.poetry.group.docs.dependencies]
-nbsphinx = "*"
-Sphinx = ">=1.4"
-sphinx-rtd-theme = "*"
+pydata-sphinx-theme = "*"
+Sphinx = ">=6.0.0"
+sphinx_copybutton = "*"
 sphinx_mdinclude = "*"
 
 [build-system]

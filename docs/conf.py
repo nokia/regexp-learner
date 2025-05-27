@@ -17,21 +17,20 @@
 # relative to the documentation root, use os.path.abspath to make it
 # absolute, like shown here.
 #
-import os
-import sys
 import regexp_learner
 
 # -- General configuration ---------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
 #
-# needs_sphinx = "1.0"
+needs_sphinx = "1.4"
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named "sphinx.ext.*") or your custom ones.
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
+    "sphinx_copybutton",
     "sphinx.ext.viewcode",
     "sphinx_mdinclude", # https://pypi.org/project/sphinx_mdinclude/
     "sphinx.ext.napoleon",
@@ -104,13 +103,30 @@ todo_include_todos = False
 # a list of builtin themes.
 #
 # html_theme = "alabaster"
-html_theme = "sphinx_rtd_theme"
+html_theme = "pydata_sphinx_theme"
 
 # Theme options are theme-specific and customize the look and feel of a
 # theme further.  For a list of options available for each theme, see the
 # documentation.
 #
-# html_theme_options = {}
+html_theme_options = {
+    "icon_links": [
+        {
+            "name": "GitHub",
+            "url": "https://github.com/nokia/regexp-learner",
+            "icon": "fa-brands fa-github",
+        },
+        {
+            "name": "PyPI",
+            "url": "https://pypi.org/project/regexp-learner",
+            "icon": "fa-custom fa-pypi",
+        },
+    ],
+    "header_links_before_dropdown": 5,
+    "show_nav_level": 2,
+    "show_toc_level": 2,
+    "navigation_depth": 2,
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -189,6 +205,3 @@ texinfo_documents = [
         category
     ),
 ]
-
-
-

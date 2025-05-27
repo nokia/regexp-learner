@@ -1,14 +1,13 @@
-Welcome to the regexp-learner package documentation!
-====================================================
+Documentation
+=============
 
 .. toctree::
    :maxdepth: 3
    :caption: Contents:
 
-   installation <installation.md>
-   API documentation <regexp_learner>
-   Developer's corner <developers.md>
-   contributing
+   Installation <installation.md>
+   Developers <developers/index>
+   API <regexp_learner>
    authors
    history
 

@@ -9,5 +9,9 @@
 
 ## 1.0.0 (2023-04-07)
 
-* Migrated to poetry
+* Migrated to `poetry`
 * Enabled CI
+
+# 1.0.1 (2025-05-27)
+
+* Documentation: migrated to `pydata` theme
