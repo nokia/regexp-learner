@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "regexp-learner"
-version = '1.0.1'
+version = '1.0.2'
 description = "Python3 module providing some algorithms to infer automata and regular expressions."
 authors = [
     "Marc-Olivier Buob <marc-olivier.buob@nokia-bell-labs.com>",
