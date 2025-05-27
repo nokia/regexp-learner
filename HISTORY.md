@@ -17,3 +17,7 @@
 * Documentation: migrated to `pydata` theme.
 * Improved code quality (`flake8`).
 * Cleaned test suite outputs (`pytest`).
+
+# 1.0.2 (2025-05-27)
+
+* Fixed documentation build (readthedoc)
